@@ -431,6 +431,3 @@ if __name__ == "__main__":
     segmentation_prediction = net(MRI)
     print segmentation_prediction.shape
 
-    softMax = nn.Softmax()
-
-    predClass_y = softMax(segmentation_prediction)
