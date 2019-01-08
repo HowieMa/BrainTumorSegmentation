@@ -132,8 +132,14 @@ class Brats15DataLoader(Dataset):
         :return:
         """
         start = np.random.randint(0, img.shape[1] - self.volume_size + 1)
-        img = img[:, start: start + self.volume_size, :, :]
-        label = label[:, start: start + self.volume_size, :, :]
+
+        Wstart = np.random.randint(0, img.shape[2] - 128 + 1)
+        Hstart = np.random.randint(0, img.shape[3] - 128 + 1)
+
+        img = img[:, start: start + self.volume_size,
+              Wstart:Wstart+128, Hstart:Hstart+128]
+        label = label[:, start: start + self.volume_size,
+                Wstart:Wstart+128, Hstart:Hstart+128]
         return img, label
 
 
@@ -141,14 +147,15 @@ class Brats15DataLoader(Dataset):
 if __name__ =="__main__":
     slice = 10
     data_dir = '../data/train/'
+    conf = '../config/sample15.conf'
     print ('**** whole tumor task *************')
-    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt')
+    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf)
     volume, labels = brats15[0]
     print ('image size ......')
-    print (volume.shape)                # (4, 16, 240, 240)
+    print (volume.shape)                # (4, 16, 128, 128)
 
     print ('label size ......')
-    print (labels.shape)             # (2, 16, 240, 240)
+    print (labels.shape)             # (2, 16, 128, 128)
 
     print ('get sample of images')
     for i in range(4):
@@ -164,7 +171,8 @@ if __name__ =="__main__":
     scipy.misc.imsave('img/label_wt.jpg', sample_label)
 
     print ('\n**** tumor core task *************')
-    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt', direction='sagittal')
+    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt',
+                                conf=conf, direction='sagittal')
     volume, labels = brats15[0]
     print ('image size ......')
     print (volume.shape)                # (4, 16, 240, 240)

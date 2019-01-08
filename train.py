@@ -19,11 +19,12 @@ device_ids = [0]
 
 # Hyper Parameter
 data_dir = '/home/haoyum/download/BRATS2015_Training'
+conf='/home/haoyum/download/BrainTumorSegmentation/config/train15.conf'
 learning_rate = 0.001
 batch_size = 2
 
 # build dataset
-data = Brats15DataLoader(data_dir=data_dir, task_type='wt')
+data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf)
 train_dataset = DataLoader(dataset=data, batch_size=batch_size, shuffle=True)
 
 
