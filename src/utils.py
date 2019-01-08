@@ -121,3 +121,13 @@ def normalize_one_volume(volume):
     out_random = np.random.normal(0, 1, size=volume.shape)
     out[volume == 0] = out_random[volume == 0]
     return out
+
+
+def oneHotLabel(label):
+    """
+    change 3D label to 4D one hot label
+    :param label: 3D numpy
+    :return: 4D numpy
+    """
+    background = 1 - label
+    return np.stack((label, background))

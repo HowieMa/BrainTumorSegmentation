@@ -1,5 +1,3 @@
-
-
 import torch
 import torch.nn as nn
 
@@ -43,7 +41,6 @@ class UNet3D(nn.Module):
         x = self.upLayer4(x, x1)
 
         x = self.outLayer(x)
-
         return x
 
 
@@ -98,7 +95,7 @@ class UpBlock(nn.Module):
 
 # test case
 if __name__ == "__main__":
-    net = UNet3D(4, 1)
+    net = UNet3D(4, 2)
 
     x = torch.randn(4, 4, 16, 64, 64)  # batch size = 4
     print ('input data')
@@ -110,7 +107,7 @@ if __name__ == "__main__":
 
     y = net(x)
     print ('output data')
-    print (y.shape)  # (4, 1, 16, 64, 64)
+    print (y.shape)  # (4, 2, 16, 64, 64)
 
 
 

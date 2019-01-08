@@ -4,7 +4,6 @@ from data_loader.brats15 import Brats15DataLoader
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 
-import configparser
 import os
 
 import torch
@@ -13,17 +12,22 @@ import torch.optim as optim
 
 
 cuda_available = torch.cuda.is_available()
-epochs = 20
+epochs = 200
 save_dir = 'ckpt/'
 device_ids = [0]
 
 
+# Hyper Parameter
+data_dir = '/home/haoyum/'
+learning_rate = 0.001
+batch_size = 2
+
 # build dataset
-data = Brats15DataLoader(data_dir='data/train/')
-train_dataset = DataLoader(dataset=data, batch_size=1, shuffle=True)
+data = Brats15DataLoader(data_dir=data_dir, task_type='wt')
+train_dataset = DataLoader(dataset=data, batch_size=batch_size, shuffle=True)
 
 
-net = UNet3D(in_ch=4, out_ch=1)  # multi-mode
+net = UNet3D(in_ch=4, out_ch=2)  # multi-mode
 
 if cuda_available:
     net = net.cuda()
@@ -31,28 +35,30 @@ if cuda_available:
 
 
 def train():
-    optimizer = optim.Adam(params=net.parameters(), lr=0.001, betas=(0.9, 0.999))
-
-    criterion = nn.BCELoss(size_average=True)
-
+    optimizer = optim.Adam(params=net.parameters(), lr=learning_rate, betas=(0.9, 0.999))
+    criterion = nn.CrossEntropyLoss()
+    softMax = nn.Softmax()
     net.train()
-
     for epoch in range(0, epochs):
         print ('epoch....................................' + str(epoch))
         for step, (images, labels) in enumerate(train_dataset):
-            images = Variable(images.cuda() if cuda_available else images)
-            labels = Variable(labels.cuda() if cuda_available else labels)
 
+            images = Variable(images.cuda() if cuda_available else images)
+            # 5D tensor Batch_Size * 4(modal) * 16(volume) * height * weight
+            labels = Variable(labels.cuda() if cuda_available else labels)
+            # 5D tensor Batch_Size * 2(onehot) * 16(volume) * height * weight
             optimizer.zero_grad()
             predicts = net(images)
 
             loss = criterion(predicts, labels)
-            print ('step... %f  loss... %f ' % (step, float(loss)) )
+            print 'step...' + str(step)
+            print 'loss...' + str(float(loss))
 
             loss.backward()
             optimizer.step()
 
-        torch.save(net.state_dict(), os.path.join(save_dir, 'unet3d_{:d}.pth'.format(epoch)))
+        if epoch % 20 == 0:
+            torch.save(net.state_dict(), os.path.join(save_dir, 'unet3d_{:d}.pth'.format(epoch)))
 
     print ('done!')
 

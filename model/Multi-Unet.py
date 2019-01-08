@@ -349,23 +349,36 @@ class IVD_Net_asym(nn.Module):
         print down_4_2m.shape
         print down_4_3m.shape
         inputBridge = torch.cat((down_4_0m, down_4_1m, down_4_2m, down_4_3m), dim=1)
-
-        print inputBridge.shape
-
         inputBridge = torch.cat((inputBridge, croppCenter(input_4th_0, inputBridge.shape)), dim=1)
+
+        print 'input bridge'
         print inputBridge.shape
         bridge = self.bridge(inputBridge)
+
+        print 'bridge'
         print bridge.shape
 
         #
         # ############################# #
         # ~~~~~~ Decoding path ~~~~~~~  #
+
         deconv_1 = self.deconv_1(bridge)
+        print 'deconv1'
+        print deconv_1.shape
         skip_1 = (deconv_1 + down_4_0 + down_4_1 + down_4_2 + down_4_3) / 5  # Residual connection
+        print 'skip 1'
+        print skip_1.shape
         up_1 = self.up_1(skip_1)
+        print 'up 1'
+        print up_1.shape
+
         deconv_2 = self.deconv_2(up_1)
+        print 'deconv2'
+        print deconv_2.shape
         skip_2 = (deconv_2 + down_3_0 + down_3_1 + down_3_2 + down_3_3) / 5  # Residual connection
+
         up_2 = self.up_2(skip_2)
+
         deconv_3 = self.deconv_3(up_2)
         skip_3 = (deconv_3 + down_2_0 + down_2_1 + down_2_2 + down_2_3) / 5  # Residual connection
         up_3 = self.up_3(skip_3)
@@ -422,7 +435,7 @@ if __name__ == "__main__":
     initial_kernels = 32
 
     net = IVD_Net_asym(1, num_classes, initial_kernels)
-    MRI = torch.randn(batch_size, 4, 32, 64, 64)
+    MRI = torch.randn(batch_size, 4, 32, 64, 64) # Batchsize, modal, hight,
 
     if torch.cuda.is_available():
         net = net.cuda()
