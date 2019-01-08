@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/BrainTumorSegmentation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BrainTumorSegmentation.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/brats15.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/brats15.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_tc.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_tc.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Multi-Unet.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/Multi-Unet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/unet3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/unet3d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +16,8 @@
       <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+            <state relative-caret-position="142">
+              <caret line="19" column="17" lean-forward="true" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -347,16 +335,6 @@
     <entry file="file://$PROJECT_DIR$/data_loader/img/label_tc.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/unet3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#2#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/split_data.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -394,10 +372,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/unet3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        <state relative-caret-position="142">
+          <caret line="19" column="17" lean-forward="true" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

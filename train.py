@@ -18,7 +18,7 @@ device_ids = [0]
 
 
 # Hyper Parameter
-data_dir = '/home/haoyum/'
+data_dir = '/home/haoyum/download/BRATS2015_Training'
 learning_rate = 0.001
 batch_size = 2
 
