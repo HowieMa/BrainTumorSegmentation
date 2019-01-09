@@ -1,5 +1,4 @@
 from model.unet3d import UNet3D
-
 from data_loader.brats15 import Brats15DataLoader
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
@@ -12,15 +11,18 @@ import torch.optim as optim
 
 
 cuda_available = torch.cuda.is_available()
-epochs = 200
+epochs = 2000
 save_dir = 'ckpt/'
-device_ids = [0]
+
+
+# multi-GPU
+device_ids = [0, 1, 2, 3]
 
 
 # Hyper Parameter
 data_dir = '/home/haoyum/download/BRATS2015_Training'
 conf='/home/haoyum/download/BrainTumorSegmentation/config/train15.conf'
-learning_rate = 0.001
+learning_rate = 0.0001
 batch_size = 2
 
 # build dataset
@@ -47,11 +49,17 @@ def train():
             images = Variable(images.cuda() if cuda_available else images)
             # 5D tensor Batch_Size * 4(modal) * 16(volume) * height * weight
             labels = Variable(labels.cuda() if cuda_available else labels)
-            # 5D tensor Batch_Size * 2(onehot) * 16(volume) * height * weight
+            # 5D tensor Batch_Size * 1        * 16(volume) * height * weight
             optimizer.zero_grad()
             predicts = net(images)
 
-            loss = criterion(predicts, labels)
+            loss = 0
+            volume_size = images.shape[2]
+            for i in range(volume_size):
+                predict = predicts[, :, i, :, :]
+                label = labels[:, 0, i, :, :]
+                loss += criterion(predict, label)
+
             print 'step...' + str(step)
             print 'loss...' + str(float(loss))
 

@@ -55,7 +55,7 @@ class Brats15DataLoader(Dataset):
 
     def __getitem__(self, item):
         # ********** get file dir **********
-        subject = self.img_lists[item]
+        subject = self.img_lists[item]  # absolute dir
         files = os.listdir(subject)  # [XXX.Flair, XXX.T1, XXX.T1c, XXX.T2, XXX.OT]
 
         multi_mode_dir = []
@@ -63,9 +63,9 @@ class Brats15DataLoader(Dataset):
         for f in files:
             if f == '.DS_Store':
                 continue
-            if 'O.OT.' not in f:
+            if 'Flair' in f or 'T1' in f or 'T2' in f:
                 multi_mode_dir.append(f)
-            else:
+            elif 'OT.' in f:
                 label_dir = f
 
         bbmin = [0, 0, 0]                           # default bounding box
@@ -86,11 +86,12 @@ class Brats15DataLoader(Dataset):
 
         # *********** image pre-processing *************
         # step1 ********* crop none-zero images and labels *********
+        minbox = [16, 128, 128]
         for i in range(len(multi_mode_imgs)):
-            multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax)
+            multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, minbox)
             multi_mode_imgs[i] = normalize_one_volume(multi_mode_imgs[i])
 
-        label = crop_with_box(label, bbmin, bbmax)
+        label = crop_with_box(label, bbmin, bbmax, minbox)
         # step2 ********* transfer images to different direction *********
         multi_mode_imgs = transpose_volumes(multi_mode_imgs, self.direction)
         label = transpose_volumes([label], self.direction)[0]
@@ -109,12 +110,11 @@ class Brats15DataLoader(Dataset):
 
         # ********** crop image and label based on bounding box **********
         for i in range(len(multi_mode_imgs)):
-            multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax)
+            multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, minbox)
         volume = np.asarray(multi_mode_imgs)
 
         label = crop_with_box(label, bbmin, bbmax)  # 3D label
-        label = oneHotLabel(label)         # from 3D to 4D label
-
+        label = label[np.newaxis, :, :, :]          # from 3D to 4D label
         # ********** get slice from whole images **********
         volume, label = self.get_slices(volume, label)
 
@@ -155,7 +155,7 @@ if __name__ =="__main__":
     print (volume.shape)                # (4, 16, 128, 128)
 
     print ('label size ......')
-    print (labels.shape)             # (2, 16, 128, 128)
+    print (labels.shape)             # (1, 16, 128, 128)
 
     print ('get sample of images')
     for i in range(4):
@@ -170,29 +170,29 @@ if __name__ =="__main__":
     print sample_label.shape
     scipy.misc.imsave('img/label_wt.jpg', sample_label)
 
-    print ('\n**** tumor core task *************')
-    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt',
-                                conf=conf, direction='sagittal')
-    volume, labels = brats15[0]
-    print ('image size ......')
-    print (volume.shape)                # (4, 16, 240, 240)
-    print ('label size ......')
-    print (labels.shape)             # (1, 16, 240, 240)
-
-    print ('get sample of images')
-    for i in range(4):
-        sample_img = volume[i, slice, :, :]        # size 1 * 240 * 240
-        sample_img = np.squeeze(np.asarray(sample_img))
-        print sample_img.shape
-        scipy.misc.imsave('img/img_%s_tc.jpg' % ddd[i] , sample_img)
-
-    print ('get sample of labels')
-    sample_label = labels[0, slice, :, :]       # size 1 * 240 * 240
-    sample_label = np.squeeze(np.asarray(sample_label))
-    print sample_label.shape
-    scipy.misc.imsave('img/label_tc.jpg', sample_label)
-
-
+    # print ('\n**** tumor core task *************')
+    # brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt',
+    #                             conf=conf, direction='sagittal')
+    # volume, labels = brats15[0]
+    # print ('image size ......')
+    # print (volume.shape)                # (4, 16, 240, 240)
+    # print ('label size ......')
+    # print (labels.shape)             # (1, 16, 240, 240)
+    #
+    # print ('get sample of images')
+    # for i in range(4):
+    #     sample_img = volume[i, slice, :, :]        # size 1 * 240 * 240
+    #     sample_img = np.squeeze(np.asarray(sample_img))
+    #     print sample_img.shape
+    #     scipy.misc.imsave('img/img_%s_tc.jpg' % ddd[i] , sample_img)
+    #
+    # print ('get sample of labels')
+    # sample_label = labels[0, slice, :, :]       # size 1 * 240 * 240
+    # sample_label = np.squeeze(np.asarray(sample_label))
+    # print sample_label.shape
+    # scipy.misc.imsave('img/label_tc.jpg', sample_label)
+    #
+    #
 
 
 

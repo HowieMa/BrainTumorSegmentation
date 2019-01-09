@@ -39,10 +39,11 @@ def get_ND_bounding_box(volume, margin):
     for i in range(len(input_shape)):  # i = 0, 1, 2
         idx_min[i] = max(idx_min[i] - margin[i], 0)   # 考虑预留边界
         idx_max[i] = min(idx_max[i] + margin[i], input_shape[i] - 1)
+
     return idx_min, idx_max
 
 
-def crop_with_box(volume, min_idx, max_idx):
+def crop_with_box(volume, min_idx, max_idx, MinBox):
     """
     crop image with bounding box
     :param volume:      type: 3D numpy.array
@@ -51,6 +52,13 @@ def crop_with_box(volume, min_idx, max_idx):
     :return:
     output  cropped volume
     """
+    # ensure we have at least a bounding box of size 16 * 128 * 128
+    for i in range(3):
+        if max_idx[i] - min_idx[i] < MinBox[i]:
+            mid = (max_idx[i] + min_idx[i]) / 2.0
+            min_idx[i] = mid - MinBox[i]/2
+            max_idx[i] = mid + MinBox[i]/2
+
     output = volume[np.ix_(range(min_idx[0], max_idx[0] + 1),
                            range(min_idx[1], max_idx[1] + 1),
                            range(min_idx[2], max_idx[2] + 1))]
