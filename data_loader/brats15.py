@@ -113,7 +113,7 @@ class Brats15DataLoader(Dataset):
             multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, minbox)
         volume = np.asarray(multi_mode_imgs)
 
-        label = crop_with_box(label, bbmin, bbmax)  # 3D label
+        label = crop_with_box(label, bbmin, bbmax, minbox)  # 3D label
         label = label[np.newaxis, :, :, :]          # from 3D to 4D label
         # ********** get slice from whole images **********
         volume, label = self.get_slices(volume, label)

@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/data_loader/brats15.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/brats15.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_tc.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_tc.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_tc.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_tc.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_tc.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_tc.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_tc.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_tc.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_tc.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_tc.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,7 +13,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="train15.conf" pinned="false" current-in-tab="true">
+      <file leaf-file-name="brats15.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+              <folding>
+                <element signature="e#274#283#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="train15.conf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/train15.conf">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="200">
@@ -55,9 +55,9 @@
       <find>2013_pat0001_1</find>
       <find>with_gt</find>
       <find>2013_pat0001</find>
-      <find>brats_2013_pat0014_1</find>
       <find>get_ND_bounding_box</find>
       <find>device_ids</find>
+      <find>brats_2013_pat0014_1</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -400,20 +400,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-546">
-          <caret line="67" column="18" selection-start-line="67" selection-start-column="18" selection-end-line="67" selection-end-column="18" />
-          <folding>
-            <element signature="e#274#283#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="265">
+          <caret line="58" column="36" selection-start-line="58" selection-start-column="36" selection-end-line="58" selection-end-column="36" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -424,6 +414,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="248" column="24" selection-start-line="248" selection-start-column="4" selection-end-line="248" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+          <folding>
+            <element signature="e#274#283#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
