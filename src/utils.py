@@ -55,7 +55,7 @@ def crop_with_box(volume, min_idx, max_idx, MinBox):
     # ensure we have at least a bounding box of size 16 * 128 * 128
     for i in range(3):
         if max_idx[i] - min_idx[i] < MinBox[i]:
-            mid = (max_idx[i] + min_idx[i]) / 2.0
+            mid = (max_idx[i] + min_idx[i]) / 2
             min_idx[i] = mid - MinBox[i]/2
             max_idx[i] = mid + MinBox[i]/2
 
