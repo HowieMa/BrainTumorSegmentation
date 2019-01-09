@@ -56,7 +56,7 @@ def train():
             loss = 0
             volume_size = images.shape[2]
             for i in range(volume_size):
-                predict = predicts[, :, i, :, :]
+                predict = predicts[:, :, i, :, :]
                 label = labels[:, 0, i, :, :]
                 loss += criterion(predict, label)
 
