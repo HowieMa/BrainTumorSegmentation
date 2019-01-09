@@ -22,7 +22,7 @@ device_ids = [0, 1, 2, 3]
 # Hyper Parameter
 data_dir = '/home/haoyum/download/BRATS2015_Training'
 conf='/home/haoyum/download/BrainTumorSegmentation/config/train15.conf'
-learning_rate = 0.0001
+learning_rate = 0.001
 batch_size = 2
 
 # build dataset
@@ -57,7 +57,7 @@ def train():
             volume_size = images.shape[2]
             for i in range(volume_size):
                 predict = predicts[:, :, i, :, :]
-                label = labels[:, 0, i, :, :]
+                label = labels[:, 0, i, :, :].long()
                 loss += criterion(predict, label)
 
             print 'step...' + str(step)
