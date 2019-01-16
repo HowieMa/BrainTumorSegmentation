@@ -207,13 +207,13 @@ class IVD_Net_asym(nn.Module):
         # ############################# #
         # ~~~~~~ Encoding path ~~~~~~~  #
 
-        i0 = input[:, 0:1, :, :, :]
+        i0 = input[:, 0:1, :, :, :]   # Batch Size * 1 * volume_size * height * width
         i1 = input[:, 1:2, :, :, :]
         i2 = input[:, 2:3, :, :, :]
         i3 = input[:, 3:4, :, :, :]
 
         # -----  First Level --------
-        down_1_0 = self.down_1_0(i0)
+        down_1_0 = self.down_1_0(i0)  # Batch Size * outdim * volume_size * height * width
         down_1_1 = self.down_1_1(i1)
         down_1_2 = self.down_1_2(i2)
         down_1_3 = self.down_1_3(i3)
@@ -224,9 +224,8 @@ class IVD_Net_asym(nn.Module):
         print down_1_2.shape
         print down_1_3.shape
 
-
         # -----  Second Level --------
-        # input_2nd = torch.cat((down_1_0,down_1_1,down_1_2,down_1_3),dim=1)
+        # Batch Size * (outdim * 4) * (volume_size/2) * (height/2) * (width/2)
         input_2nd_0 = torch.cat((self.pool_1_0(down_1_0),
                                  self.pool_1_1(down_1_1),
                                  self.pool_1_2(down_1_2),

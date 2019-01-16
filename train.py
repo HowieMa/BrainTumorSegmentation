@@ -23,7 +23,7 @@ device_ids = [0, 1, 2, 3]
 data_dir = '/home/haoyum/download/BRATS2015_Training'
 conf='/home/haoyum/download/BrainTumorSegmentation/config/train15.conf'
 learning_rate = 0.001
-batch_size = 2
+batch_size = 4
 
 # build dataset
 data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf)
@@ -47,9 +47,9 @@ def train():
         for step, (images, labels) in enumerate(train_dataset):
 
             images = Variable(images.cuda() if cuda_available else images)
-            # 5D tensor Batch_Size * 4(modal) * 16(volume) * height * weight
+            # 5D tensor Batch_Size * 4(modal) * 16(volume_size) * height * weight
             labels = Variable(labels.cuda() if cuda_available else labels)
-            # 5D tensor Batch_Size * 1        * 16(volume) * height * weight
+            # 5D tensor Batch_Size * 1        * 16(volume_size) * height * weight
             optimizer.zero_grad()
             predicts = net(images)
 
