@@ -97,7 +97,7 @@ class UpBlock(nn.Module):
 if __name__ == "__main__":
     net = UNet3D(4, 2)
 
-    x = torch.randn(4, 4, 16, 64, 64)  # batch size = 4
+    x = torch.randn(2, 4, 16, 64, 64)  # batch size = 2
     print ('input data')
     print (x.shape)
 

@@ -18,9 +18,14 @@ def croppCenter(tensorToCrop, finalShape):
     croppBorders[0] = int(diff[0] / 2)
     croppBorders[1] = int(diff[1] / 2)
     croppBorders[2] = int(diff[2] / 2)
-
-    return tensorToCrop[:,
-           :,
+    if croppBorders[0] == 0:
+        return tensorToCrop[:, :,
+           croppBorders[0]:org_shape[2] - 1,
+           croppBorders[1]:org_shape[3] - croppBorders[1],
+           croppBorders[2]:org_shape[4] - croppBorders[2]
+           ]
+    else:
+        return tensorToCrop[:, :,
            croppBorders[0]:org_shape[2] - croppBorders[0],
            croppBorders[1]:org_shape[3] - croppBorders[1],
            croppBorders[2]:org_shape[4] - croppBorders[2]
@@ -218,12 +223,6 @@ class IVD_Net_asym(nn.Module):
         down_1_2 = self.down_1_2(i2)
         down_1_3 = self.down_1_3(i3)
 
-        print 'down 1'
-        print down_1_0.shape
-        print down_1_1.shape
-        print down_1_2.shape
-        print down_1_3.shape
-
         # -----  Second Level --------
         # Batch Size * (outdim * 4) * (volume_size/2) * (height/2) * (width/2)
         input_2nd_0 = torch.cat((self.pool_1_0(down_1_0),
@@ -246,23 +245,10 @@ class IVD_Net_asym(nn.Module):
                                  self.pool_1_1(down_1_1),
                                  self.pool_1_2(down_1_2)), dim=1)
 
-        print 'input 2'
-        print input_2nd_0.shape
-        print input_2nd_1.shape
-        print input_2nd_2.shape
-        print input_2nd_3.shape
-
-
         down_2_0 = self.down_2_0(input_2nd_0)
         down_2_1 = self.down_2_1(input_2nd_1)
         down_2_2 = self.down_2_2(input_2nd_2)
         down_2_3 = self.down_2_3(input_2nd_3)
-
-        print 'down 2'
-        print down_2_0.shape
-        print down_2_1.shape
-        print down_2_2.shape
-        print down_2_3.shape
 
         # -----  Third Level --------
         # Max-pool
@@ -270,12 +256,6 @@ class IVD_Net_asym(nn.Module):
         down_2_1m = self.pool_2_0(down_2_1)
         down_2_2m = self.pool_2_0(down_2_2)
         down_2_3m = self.pool_2_0(down_2_3)
-
-        print 'down 2 m'
-        print down_2_0m.shape
-        print down_2_1m.shape
-        print down_2_2m.shape
-        print down_2_3m.shape
 
         input_3rd_0 = torch.cat((down_2_0m, down_2_1m, down_2_2m, down_2_3m), dim=1)
         input_3rd_0 = torch.cat((input_3rd_0, croppCenter(input_2nd_0, input_3rd_0.shape)), dim=1)
@@ -289,22 +269,11 @@ class IVD_Net_asym(nn.Module):
         input_3rd_3 = torch.cat((down_2_3m, down_2_0m, down_2_1m, down_2_2m), dim=1)
         input_3rd_3 = torch.cat((input_3rd_3, croppCenter(input_2nd_3, input_3rd_3.shape)), dim=1)
 
-        print 'input 3'
-        print input_3rd_0.shape
-        print input_3rd_1.shape
-        print input_3rd_2.shape
-        print input_3rd_3.shape
-
         down_3_0 = self.down_3_0(input_3rd_0)
         down_3_1 = self.down_3_1(input_3rd_1)
         down_3_2 = self.down_3_2(input_3rd_2)
         down_3_3 = self.down_3_3(input_3rd_3)
 
-        print 'down 3'
-        print down_3_0.shape
-        print down_3_1.shape
-        print down_3_2.shape
-        print down_3_3.shape
         # -----  Fourth Level --------
 
         # Max-pool
@@ -325,12 +294,6 @@ class IVD_Net_asym(nn.Module):
         input_4th_3 = torch.cat((down_3_3m, down_3_0m, down_3_1m, down_3_2m), dim=1)
         input_4th_3 = torch.cat((input_4th_3, croppCenter(input_3rd_3, input_4th_3.shape)), dim=1)
 
-        print 'i4'
-        print input_4th_0.shape
-        print input_4th_1.shape
-        print input_4th_2.shape
-        print input_4th_3.shape
-
         down_4_0 = self.down_4_0(input_4th_0)  # 8C
         down_4_1 = self.down_4_1(input_4th_1)
         down_4_2 = self.down_4_2(input_4th_2)
@@ -342,45 +305,27 @@ class IVD_Net_asym(nn.Module):
         down_4_1m = self.pool_4_0(down_4_1)
         down_4_2m = self.pool_4_0(down_4_2)
         down_4_3m = self.pool_4_0(down_4_3)
-        print 'down4 m'
-        print down_4_0m.shape
-        print down_4_1m.shape
-        print down_4_2m.shape
-        print down_4_3m.shape
+
         inputBridge = torch.cat((down_4_0m, down_4_1m, down_4_2m, down_4_3m), dim=1)
         inputBridge = torch.cat((inputBridge, croppCenter(input_4th_0, inputBridge.shape)), dim=1)
 
-        print 'input bridge'
-        print inputBridge.shape
         bridge = self.bridge(inputBridge)
 
-        print 'bridge'
-        print bridge.shape
-
-        #
         # ############################# #
         # ~~~~~~ Decoding path ~~~~~~~  #
 
         deconv_1 = self.deconv_1(bridge)
-        print 'deconv1'
-        print deconv_1.shape
         skip_1 = (deconv_1 + down_4_0 + down_4_1 + down_4_2 + down_4_3) / 5  # Residual connection
-        print 'skip 1'
-        print skip_1.shape
         up_1 = self.up_1(skip_1)
-        print 'up 1'
-        print up_1.shape
 
         deconv_2 = self.deconv_2(up_1)
-        print 'deconv2'
-        print deconv_2.shape
         skip_2 = (deconv_2 + down_3_0 + down_3_1 + down_3_2 + down_3_3) / 5  # Residual connection
-
         up_2 = self.up_2(skip_2)
 
         deconv_3 = self.deconv_3(up_2)
         skip_3 = (deconv_3 + down_2_0 + down_2_1 + down_2_2 + down_2_3) / 5  # Residual connection
         up_3 = self.up_3(skip_3)
+
         deconv_4 = self.deconv_4(up_3)
         skip_4 = (deconv_4 + down_1_0 + down_1_1 + down_1_2 + down_1_3) / 5  # Residual connection
         up_4 = self.up_4(skip_4)
@@ -434,7 +379,7 @@ if __name__ == "__main__":
     initial_kernels = 32
 
     net = IVD_Net_asym(1, num_classes, initial_kernels)
-    MRI = torch.randn(batch_size, 4, 32, 64, 64) # Batchsize, modal, hight,
+    MRI = torch.randn(batch_size, 4, 16, 64, 64)    # Batchsize, modal, hight,
 
     if torch.cuda.is_available():
         net = net.cuda()

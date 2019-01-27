@@ -218,7 +218,7 @@ class ENET(nn.Module):
 
 
 if __name__ =='__main__':
-    x = torch.ones(1, 1, 24, 24, 24)
+    x = torch.ones(1, 4, 24, 24, 24)
     print ('test wnet............')
     print ('shape of X ')
     print x.shape

@@ -30,19 +30,16 @@ ddd = ['flair', 't1', 't1c', 't2']
 
 
 class Brats15DataLoader(Dataset):
-    def __init__(self, data_dir, direction='axial', volume_size=16,
-                 num_class=4, task_type='wt',
-                 conf='../config/train15.conf',
-                 with_gt=True):
+    def __init__(self, data_dir, direction='axial', task_type='wt',
+                 conf='../config/train15.conf', with_gt=True):
         self.data_dir = data_dir  #
-        self.num_class = num_class
         self.img_lists = []
 
-        self.data_box = [16, 128, 128]
+        self.data_box = [16, 128, 128]      #
         self.margin = 5
         self.with_gt = with_gt
 
-        self.task_type = task_type
+        self.task_type = task_type    # whole tumor, tumor core,
         self.direction = direction    # 'axial', 'sagittal', or 'coronal'
 
         train_config = open(conf).readlines()
@@ -54,6 +51,7 @@ class Brats15DataLoader(Dataset):
         for subject in self.img_lists:
             if subject not in self.data:
                 self.data[subject] = self.get_subject(subject)
+
         print ('**** Finish loading data ...')
         print ('**** total number of data is ' + str(len(self.data)))
 
@@ -71,7 +69,8 @@ class Brats15DataLoader(Dataset):
         # ********** change data type from numpy to torch.Tensor **********
         volume = torch.from_numpy(volume)  # modal(4) * volume_size(16) * height * weight
         label = torch.from_numpy(label)  # modal(4) * volume_size(16) * height * weight
-        return volume.float(), label.float()
+
+        return volume.float(), label.float(), subject
 
     def get_subject(self, subject):
         """
@@ -168,53 +167,32 @@ class Brats15DataLoader(Dataset):
 # test case
 if __name__ =="__main__":
     slice = 10
-    data_dir = '../data/train/'
+    data_dir = '../data_sample/'
     conf = '../config/sample15.conf'
     print ('**** whole tumor task *************')
     brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf)
-    volume, labels = brats15[0]
+    volume, labels, subjct = brats15[0]
     print ('image size ......')
     print (volume.shape)             # (4, 16, 128, 128)
 
     print ('label size ......')
     print (labels.shape)             # (1, 16, 128, 128)
 
+    print subjct
+
     print ('get sample of images')
     for i in range(4):
-        sample_img = volume[i, slice, :, :]        # size 1 * 240 * 240
-        sample_img = np.squeeze(np.asarray(sample_img))
-        print sample_img.shape
+        sample_img = volume[i, slice, :, :]         # 128 * 128
+        print sample_img.shape                      # 128 * 128
         scipy.misc.imsave('img/img_%s_wt.jpg' % ddd[i], sample_img)
 
     print ('get sample of labels')
-    sample_label = labels[0, slice, :, :]       # size 1 * 240 * 240
-    sample_label = np.squeeze(np.asarray(sample_label))
+    sample_label = labels[0, slice, :, :]           # 128 * 128
     print sample_label.shape
     scipy.misc.imsave('img/label_wt.jpg', sample_label)
 
-    # print ('\n**** tumor core task *************')
-    # brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt',
-    #                             conf=conf, direction='sagittal')
-    # volume, labels = brats15[0]
-    # print ('image size ......')
-    # print (volume.shape)                # (4, 16, 240, 240)
-    # print ('label size ......')
-    # print (labels.shape)             # (1, 16, 240, 240)
-    #
-    # print ('get sample of images')
-    # for i in range(4):
-    #     sample_img = volume[i, slice, :, :]        # size 1 * 240 * 240
-    #     sample_img = np.squeeze(np.asarray(sample_img))
-    #     print sample_img.shape
-    #     scipy.misc.imsave('img/img_%s_tc.jpg' % ddd[i] , sample_img)
-    #
-    # print ('get sample of labels')
-    # sample_label = labels[0, slice, :, :]       # size 1 * 240 * 240
-    # sample_label = np.squeeze(np.asarray(sample_label))
-    # print sample_label.shape
-    # scipy.misc.imsave('img/label_tc.jpg', sample_label)
-    #
-    #
+
+
 
 
 

@@ -2,6 +2,8 @@
 
 import SimpleITK as sitk
 import numpy as np
+import scipy.misc
+import os
 
 
 def load_mha_as_array(img_name):
@@ -139,3 +141,63 @@ def oneHotLabel(label):
     """
     background = 1 - label
     return np.stack((label, background))
+
+
+def Dice(predict, label):
+    """
+
+    :param predict: 5D tensor Batch_Size * 2 * 16(volume_size) * height * weight
+    :param label:   5D tensor Batch_Size * 1 * 16(volume_size) * height * weight
+    :return:
+    """
+
+
+def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
+    """
+    :param images:      5D tensor Batch_Size * 4(modal)  * 16(volume_size) * height * weight
+    :param predicts:    5D tensor Batch_Size * 2(onehot) * 16(volume_size) * height * weight
+    :param labels:      5D tensor Batch_Size * 1         * 16(volume_size) * height * weight
+    :return:
+    """
+    slice = 1
+    images = np.asarray(images)
+    predicts = np.asarray(predicts)
+    labels = np.asarray(labels)
+
+    if not os.path.exists(save_dir + 'epoch' + str(epoch)):
+        os.mkdir(save_dir + 'epoch' + str(epoch))
+
+    for b in range(len(images.shape)):  # for each batch
+        output = np.zeros((128, 128 * 6))  # H, W
+        for m in range(4):  # for each modal
+            output[:, 128 * m: 128 * m + 128] = images[b, m, slice, :, :]
+
+        output[:, 128 * 4: 128 * 4 + 128] = predicts[b, 0, slice, :, :]
+        output[:, 128 * 5: 128 * 5 + 128] = labels[b, 0, slice, :, :]
+
+        save_dir = save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg'
+        scipy.misc.imsave(save_dir, output)
+
+
+def weights_init(m):
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        m.weight.data.normal_(0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        m.weight.data.normal_(1.0, 0.02)
+        m.bias.data.fill_(0)
+
+
+def dice(predict, target):
+    """
+
+    :param predict: 4D Long Tensor Batch_Size * 16(volume_size) * height * weight
+    :param target:  4D Long Tensor Batch_Size * 16(volume_size) * height * weight
+    :return:
+    """
+    smooth = 0
+    batch_num = target.shape[0]
+    target = target.view(batch_num, -1)
+    predict = predict.view(batch_num, -1)
+    intersection = (target * predict).sum()
+    return (2.0 * intersection + smooth) / (predict.sum() + predict.sum() + smooth)
