@@ -45,7 +45,7 @@ def test():
         net = load_model(model)
         net.eval()
         dice_all = []
-        for step, (images, labels) in enumerate(test_dataset):
+        for step, (images, labels, subject) in enumerate(test_dataset):
             images = Variable(images.cuda() if cuda_available else images)
             # 5D tensor   Batch_Size * 4(modal) * 16(volume_size) * height * weight
             labels = Variable(labels.cuda() if cuda_available else labels)

@@ -72,7 +72,7 @@ def run():
         # *************** train model ***************
         print 'train ....'
         net.train()
-        for step, (images, labels) in enumerate(train_dataset):
+        for step, (images, labels,subject) in enumerate(train_dataset):
             images = Variable(images.cuda() if cuda_available else images)
             # 5D tensor   Batch_Size * 4(modal) * 16(volume_size) * height * weight
             labels = Variable(labels.cuda() if cuda_available else labels)
