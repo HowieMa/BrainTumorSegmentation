@@ -196,23 +196,22 @@ def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
     :return:
     """
     slice = 1
-    images = np.asarray(images)
-    predicts = np.asarray(predicts)
+    images = np.asarray(images.data)
+    predicts = np.asarray(predicts.data)
     labels = np.asarray(labels)
 
     if not os.path.exists(save_dir + 'epoch' + str(epoch)):
         os.mkdir(save_dir + 'epoch' + str(epoch))
 
-    for b in range(len(images.shape)):  # for each batch
-        output = np.zeros((128, 128 * 6))  # H, W
-        for m in range(4):  # for each modal
-            output[:, 128 * m: 128 * m + 128] = images[b, m, slice, :, :]
+    for b in range(images.shape[0]):  # for each batch
+        output = np.zeros((192, 192 * 6))  # H, W
+        for m in range(4):              # for each modal
+            output[:, 192 * m: 192 * m + 192] = images[b, m, slice, :, :]
 
-        output[:, 128 * 4: 128 * 4 + 128] = predicts[b, 0, slice, :, :]
-        output[:, 128 * 5: 128 * 5 + 128] = labels[b, 0, slice, :, :]
+        output[:, 192 * 4: 192 * 4 + 192] = predicts[b, 0, slice, :, :]
+        output[:, 192 * 5: 192 * 5 + 192] = labels[b, 0, slice, :, :]
 
-        save_dir = save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg'
-        scipy.misc.imsave(save_dir, output)
+        scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg', output)
 
 
 def weights_init(m):

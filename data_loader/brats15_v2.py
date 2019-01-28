@@ -47,6 +47,7 @@ class Brats15DataLoader(Dataset):
         for data in train_config:
             self.img_lists.append(os.path.join(self.data_dir, data.strip('\n')))
 
+        print('~' * 50)
         print ('******** Loading data from disk ********')
         self.data = {}
         for subject in self.img_lists:
@@ -54,7 +55,8 @@ class Brats15DataLoader(Dataset):
                 self.data[subject] = self.get_subject(subject)
 
         print ('********  Finish loading data  ********')
-        print ('**** Total number of subject is ' + str(len(self.data)))
+        print ('********  Total number of subject is ' + str(len(self.data)))
+        print('~' * 50)
 
     def __len__(self):
         return len(self.img_lists)
@@ -152,6 +154,7 @@ class Brats15DataLoader(Dataset):
         label     Float Tensor List [4 * 16 * 192 * 192] * 9
         """
         times = img.shape[1] / self.volume_size  # 144 / 16 = 9
+
         images_vol = []
         labels_vol = []
         for t in range(times):
@@ -160,10 +163,10 @@ class Brats15DataLoader(Dataset):
             else:
                 start = t * self.volume_size  # 0 ,16, 32, 48, ...
 
-            img = img[:, start: start + self.volume_size, :, :]
-            label = label[:, start: start + self.volume_size, :, :]
-            images_vol.append(img)
-            labels_vol.append(label)
+            im = img[:, start: start + self.volume_size, :, :]
+            lbl = label[:, start: start + self.volume_size, :, :]
+            images_vol.append(im)
+            labels_vol.append(lbl)
 
         return images_vol, labels_vol
 
@@ -174,8 +177,12 @@ if __name__ =="__main__":
     data_dir = '../data_sample/'
     conf = '../config/sample15.conf'
     print ('**** whole tumor task *************')
-    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf,is_train=True)
+    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf, is_train=True)
     volume, labels, subjct = brats15[0]
+
+    print 'volume size ...'
+    print len(volume)
+
     print ('image size ......')
     print (volume[0].shape)             # (4, 16, 128, 128)
 

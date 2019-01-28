@@ -77,9 +77,9 @@ def run():
         for step, (images_vol, labels_vol, subject) in enumerate(train_dataset):
             for i in range(len(images_vol)):        # 144/16 = 9
                 images = Variable(images_vol[i].cuda() if cuda_available else images_vol[i])
-                # 5D tensor   Batch_Size * 4(modal) * 144 * 192 * 192
+                # 5D tensor   Batch_Size * 4(modal) * 16 * 192 * 192
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
-                # 5D tensor   Batch_Size * 1        * 144 * 192 * 192
+                # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
 
                 optimizer.zero_grad()
                 predicts = net(images)
