@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 
-from src.utils import *
-
 
 class UNet(nn.Module):
     def __init__(self, in_ch, out_ch):
@@ -74,7 +72,6 @@ class Up(nn.Module):
 
 if __name__ == "__main__":
     net = UNet(1, 3)
-    net.apply(weights_init)
     a = torch.randn(4, 1, 64, 64)
     b = net(a)
     print b.shape

@@ -38,8 +38,6 @@ elif model == 'multi_unet':
 else:
     exit('wrong model!')
 
-# init model weight
-net.apply(weights_init)
 
 if cuda_available:
     net = net.cuda()
