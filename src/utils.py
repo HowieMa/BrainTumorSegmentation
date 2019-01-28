@@ -31,7 +31,7 @@ def get_ND_bounding_box(volume, margin):
     if (type(margin) is int):
         margin = [margin] * len(input_shape)
 
-    indxes = np.nonzero(volume)  # 每一维度中非0 的数据的位置
+    indxes = np.nonzero(volume)  # 每一维度中非0 的数据的位置 (x1, x2, ...xn), (y1,y2,..,yn)
     idx_min = []    # type list  [minx, miny, minz]
     idx_max = []    # type list  [maxx, maxy, maxz]
     for i in range(len(input_shape)):  # i = 0, 1, 2
@@ -43,6 +43,27 @@ def get_ND_bounding_box(volume, margin):
         idx_max[i] = min(idx_max[i] + margin[i], input_shape[i] - 1)
 
     return idx_min, idx_max
+
+
+def resize_image(volume, box):
+    """
+
+    :param volume: type: 3D numpy 155 * 240 * 240
+    :param box:     list 160 * 192 * 192
+    :return:
+    """
+    input_shape = volume.shape  # volume 150 * 240 * 240
+
+    idx_min = []    # type list  [, 24, 24]
+    idx_max = []    # type list  [maxx, 216, 216]
+    for i in range(len(input_shape)):
+        idx_min.append(np.abs(input_shape[i] / 2 - box[i]/2))
+        idx_max.append(input_shape[i] / 2 + box[i]/2)
+
+    output = np.zeros(box)
+    output[idx_min[0]-1:idx_max[0], :, :] = volume[0:input_shape[0],
+                                            idx_min[1]:idx_max[1],idx_min[2]:idx_max[2]]
+    return output
 
 
 def crop_with_box(volume, min_idx, max_idx, MinBox):
@@ -61,9 +82,9 @@ def crop_with_box(volume, min_idx, max_idx, MinBox):
             min_idx[i] = mid - MinBox[i]/2
             max_idx[i] = mid + MinBox[i]/2
 
-    output = volume[np.ix_(range(min_idx[0], max_idx[0] + 1),
-                           range(min_idx[1], max_idx[1] + 1),
-                           range(min_idx[2], max_idx[2] + 1))]
+    output = volume[np.ix_(range(min_idx[0], max_idx[0]),
+                           range(min_idx[1], max_idx[1]),
+                           range(min_idx[2], max_idx[2]))]
     return output
 
 
@@ -201,3 +222,4 @@ def dice(predict, target):
     predict = predict.view(batch_num, -1)
     intersection = (target * predict).sum()
     return (2.0 * intersection + smooth) / (predict.sum() + predict.sum() + smooth)
+
