@@ -29,6 +29,7 @@ from src.utils import *
 ddd = ['flair', 't1', 't1c', 't2']
 
 
+
 class Brats15DataLoader(Dataset):
     def __init__(self, data_dir, direction='axial', task_type='wt',
                  conf='../config/train15.conf', with_gt=True):
@@ -51,6 +52,8 @@ class Brats15DataLoader(Dataset):
         for subject in self.img_lists:
             if subject not in self.data:
                 self.data[subject] = self.get_subject(subject)
+
+        np.random.rand(20180128)
 
         print ('**** Finish loading data ...')
         print ('**** total number of data is ' + str(len(self.data)))

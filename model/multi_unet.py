@@ -119,10 +119,10 @@ class Conv_residual_conv_Inception_Dilation_asymmetric(nn.Module):
         return conv_3
 
 
-class IVD_Net_asym(nn.Module):
+class Multi_Unet(nn.Module):
 
     def __init__(self, input_nc, output_nc, ngf):
-        super(IVD_Net_asym, self).__init__()
+        super(Multi_Unet, self).__init__()
         print('~' * 50)
         print(' ----- Creating FUSION_NET HD (Assymetric) network...')
         print('~' * 50)
@@ -378,7 +378,7 @@ if __name__ == "__main__":
     num_classes = 2
     initial_kernels = 32
 
-    net = IVD_Net_asym(1, num_classes, initial_kernels)
+    net = Multi_Unet(1, num_classes, initial_kernels)
     MRI = torch.randn(batch_size, 4, 16, 64, 64)    # Batchsize, modal, hight,
 
     if torch.cuda.is_available():

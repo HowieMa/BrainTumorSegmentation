@@ -2,33 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/sample15.conf" beforeDir="false" afterPath="$PROJECT_DIR$/config/sample15.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_Flair.54512/License_CC_BY_NC_SA_3.0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_Flair.54512/VSD.Brain.XX.O.MR_Flair.54512.mha" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_T1.54513/License_CC_BY_NC_SA_3.0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_T1.54513/VSD.Brain.XX.O.MR_T1.54513.mha" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_T1c.54514/License_CC_BY_NC_SA_3.0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_T1c.54514/VSD.Brain.XX.O.MR_T1c.54514.mha" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_T2.54515/License_CC_BY_NC_SA_3.0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain.XX.O.MR_T2.54515/VSD.Brain.XX.O.MR_T2.54515.mha" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain_3more.XX.O.OT.54517/License_CC_BY_NC_SA_3.0.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/train/brats_2013_pat0001_1/VSD.Brain_3more.XX.O.OT.54517/VSD.Brain_3more.XX.O.OT.54517.mha" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_loader/brats15.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/brats15.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_tc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_tc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_tc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_tc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_tc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Multi-Unet.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/multi_unet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/msnet.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/msnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/unet3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/unet3d.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/multi_unet.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/multi_unet.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,7 +19,7 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3369">
+            <state relative-caret-position="-140">
               <caret line="180" selection-start-line="180" selection-end-line="180" />
               <folding>
                 <element signature="e#16#40#0" expanded="true" />
@@ -52,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
+      <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+            <state relative-caret-position="-218">
+              <caret line="43" column="55" selection-start-line="43" selection-start-column="55" selection-end-line="43" selection-end-column="55" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -64,11 +40,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="19">
+                <caret line="1" column="62" selection-start-line="1" selection-start-column="62" selection-end-line="1" selection-end-column="62" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="brats15.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="172" column="60" selection-start-line="172" selection-start-column="51" selection-end-line="172" selection-end-column="60" />
+            <state relative-caret-position="1140">
+              <caret line="69" column="44" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="44" />
               <folding>
                 <element signature="e#274#283#0" expanded="true" />
               </folding>
@@ -76,19 +64,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="label_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/label_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="img_t2_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="img_flair_wt.jpg" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
+      <file leaf-file-name="run.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -113,7 +95,6 @@
       <find>2013_pat0001</find>
       <find>get_ND_bounding_box</find>
       <find>device_ids</find>
-      <find>save_dir</find>
       <find>brats_2013_pat0014_1</find>
       <find>ddd</find>
       <find>volume_size</find>
@@ -124,6 +105,7 @@
       <find>with_gt</find>
       <find>task_type</find>
       <find>brats_2013_pat0001_1</find>
+      <find>save_dir</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -141,12 +123,14 @@
         <option value="$PROJECT_DIR$/config/test15.conf" />
         <option value="$PROJECT_DIR$/config/train15.conf" />
         <option value="$PROJECT_DIR$/config/sample15.conf" />
-        <option value="$PROJECT_DIR$/data_loader/brats15.py" />
-        <option value="$PROJECT_DIR$/model/multi_unet.py" />
         <option value="$PROJECT_DIR$/model/unet3d.py" />
         <option value="$PROJECT_DIR$/src/utils.py" />
-        <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/model/multi_unet.py" />
+        <option value="$PROJECT_DIR$/run.sh" />
+        <option value="$PROJECT_DIR$/data_loader/brats15.py" />
+        <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -169,13 +153,7 @@
             <path>
               <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="BrainTumorSegmentation" type="462c0819:PsiDirectoryNode" />
-              <item name="data_loader" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BrainTumorSegmentation" type="462c0819:PsiDirectoryNode" />
-              <item name="data_loader" type="462c0819:PsiDirectoryNode" />
-              <item name="img" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
@@ -363,27 +341,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model/multi_unet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4731">
-          <caret line="254" lean-forward="true" selection-start-line="254" selection-end-line="254" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/img/label_wt.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -417,6 +374,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -453,6 +413,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -467,6 +430,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -484,6 +450,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="589">
           <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -544,13 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/multi_unet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7144">
-          <caret line="381" column="52" selection-start-line="381" selection-start-column="52" selection-end-line="381" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/train15.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
@@ -568,22 +530,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/data_loader/img/label_wt.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3369">
-          <caret line="180" selection-start-line="180" selection-end-line="180" />
-          <folding>
-            <element signature="e#16#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -595,24 +549,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/unet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/multi_unet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="380" column="53" lean-forward="true" selection-start-line="380" selection-start-column="20" selection-end-line="380" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-140">
+          <caret line="180" selection-start-line="180" selection-end-line="180" />
+          <folding>
+            <element signature="e#16#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="172" column="60" selection-start-line="172" selection-start-column="51" selection-end-line="172" selection-end-column="60" />
+        <state relative-caret-position="1140">
+          <caret line="69" column="44" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="44" />
           <folding>
             <element signature="e#274#283#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_loader/img/label_wt.jpg">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/run.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="19">
+            <caret line="1" column="62" selection-start-line="1" selection-start-column="62" selection-end-line="1" selection-end-column="62" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg">
-      <provider selected="true" editor-type-id="images" />
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-218">
+          <caret line="43" column="55" selection-start-line="43" selection-start-column="55" selection-end-line="43" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

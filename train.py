@@ -1,5 +1,5 @@
 from model.unet3d import UNet3D
-from model.multi_unet import IVD_Net_asym
+from model.multi_unet import Multi_Unet
 from src.utils import *
 from data_loader.brats15 import Brats15DataLoader
 
@@ -7,6 +7,7 @@ from data_loader.brats15 import Brats15DataLoader
 from torch.utils.data import DataLoader
 from torch.autograd import Variable
 
+import sys
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -19,14 +20,16 @@ conf_test = 'config/test15.conf'
 learning_rate = 0.001
 batch_size = 4
 epochs = 2000
-save_dir = 'ckpt/'
+save_dir = 'ckpt_'
 device_ids = [0, 1, 2, 3]       # multi-GPU
 cuda_available = torch.cuda.is_available()
 
-log_train = open('log_train.txt', 'w')
-log_test = open('log_test.txt', 'w')
 
 
+model = sys.argv[1]
+
+if not os.path.exists(save_dir + model + '/'):
+    os.mkdir(save_dir + model + '/')
 # ******************** data preparation  ********************
 print 'train data ....'
 train_data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf_train)
@@ -39,7 +42,12 @@ test_dataset = DataLoader(dataset=test_data, batch_size=batch_size, shuffle=True
 
 
 # ******************** build model ********************
-net = UNet3D(in_ch=4, out_ch=2)  # multi-modal =4, out binary classification one-hot
+if model == '3dunet':
+    net = UNet3D(in_ch=4, out_ch=2)  # multi-modal =4, out binary classification one-hot
+elif model == 'multi_unet':
+    net = Multi_Unet(1, 2, 32)
+else:
+    exit('wrong model!')
 
 # init model weight
 net.apply(weights_init)
@@ -47,6 +55,11 @@ net.apply(weights_init)
 if cuda_available:
     net = net.cuda()
     net = nn.DataParallel(net, device_ids=device_ids)
+
+# ******************** log file ********************
+log_train = open(model + 'log_train.txt', 'w')
+log_test = open(model + 'log_test.txt', 'w')
+log_test_dice = open(model + 'log_test_dice.txt', 'w')
 
 
 def run():
@@ -57,7 +70,9 @@ def run():
         print ('epoch....................................' + str(epoch))
         train_loss = []
         test_loss = []
+        test_dice = []
         # *************** train model ***************
+        print 'train ....'
         net.train()
         for step, (images, labels) in enumerate(train_dataset):
             images = Variable(images.cuda() if cuda_available else images)
@@ -74,9 +89,10 @@ def run():
 
             # ****** save image of step 0 for each epoch ******
             if step == 0:
-                save_train_slice(images, predicts, labels, epoch)
+                save_train_slice(images, predicts, labels, epoch, save_dir=save_dir + model + '/')
 
         # ***************** calculate test loss *****************
+        print 'test ....'
         net.eval()
         for step, (images, labels) in enumerate(test_dataset):
             images = Variable(images.cuda() if cuda_available else images)
@@ -94,16 +110,18 @@ def run():
             predicts = (predicts[:, 0, :, :, :] > 0.5).long()
             # 4D Long tensor   Batch_Size * 16(volume_size) * height * weight
 
-            dice(predicts, labels[:, 0, :, :, :].long())
+            d = dice(predicts, labels[:, 0, :, :, :].long())
+            test_dice.append(d)
 
         # **************** save loss for one batch ****************
         log_train.write(str(sum(train_loss)/(len(train_loss) * 1.0)) + '\n')
         log_test.write(str(sum(test_loss) / (len(test_loss) * 1.0)) + '\n')
+        log_test.write(str(sum(test_dice) / (len(test_dice) * 1.0)) + '\n')
 
         # **************** save model ****************
-        if epoch % 50 == 0:
+        if epoch % 100 == 0:
             torch.save(net.state_dict(),
-                       os.path.join(save_dir, 'unet3d_{:d}.pth'.format(epoch)))
+                       os.path.join(save_dir + model + '/', 'epoch_{:d}.pth'.format(epoch)))
 
     print ('done!')
 
@@ -111,4 +129,6 @@ def run():
 if __name__ == '__main__':
     run()
 
-
+log_train.close()
+log_test.close()
+log_test_dice.close()
