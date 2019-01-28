@@ -24,22 +24,11 @@ save_dir = 'ckpt_'
 device_ids = [0, 1, 2, 3]       # multi-GPU
 cuda_available = torch.cuda.is_available()
 
-
-
 model = sys.argv[1]
+print model
 
 if not os.path.exists(save_dir + model + '/'):
     os.mkdir(save_dir + model + '/')
-# ******************** data preparation  ********************
-print 'train data ....'
-train_data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf_train)
-print 'test data .....'
-test_data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf_test)
-
-# data loader
-train_dataset = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
-test_dataset = DataLoader(dataset=test_data, batch_size=batch_size, shuffle=True)
-
 
 # ******************** build model ********************
 if model == '3dunet':
@@ -50,7 +39,7 @@ else:
     exit('wrong model!')
 
 # init model weight
-# net.apply(weights_init)
+net.apply(weights_init)
 
 if cuda_available:
     net = net.cuda()
@@ -60,6 +49,17 @@ if cuda_available:
 log_train = open(model + 'log_train.txt', 'w')
 log_test = open(model + 'log_test.txt', 'w')
 log_test_dice = open(model + 'log_test_dice.txt', 'w')
+
+
+# ******************** data preparation  ********************
+print 'train data ....'
+train_data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf_train)
+print 'test data .....'
+test_data = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf_test)
+
+# data loader
+train_dataset = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True)
+test_dataset = DataLoader(dataset=test_data, batch_size=batch_size, shuffle=True)
 
 
 def run():

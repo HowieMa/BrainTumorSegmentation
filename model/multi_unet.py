@@ -1,3 +1,4 @@
+from src.utils import *
 import torch
 import torch.nn as nn
 
@@ -379,6 +380,7 @@ if __name__ == "__main__":
     initial_kernels = 32
 
     net = Multi_Unet(1, num_classes, initial_kernels)
+    net.apply(weights_init)
     MRI = torch.randn(batch_size, 4, 16, 64, 64)    # Batchsize, modal, hight,
 
     if torch.cuda.is_available():
