@@ -72,15 +72,30 @@ def crop_with_box(volume, min_idx, max_idx, MinBox):
     :param volume:      type: 3D numpy.array
     :param min_idx:     type: list          [minx, miny, minz]
     :param max_idx:     type: list          [maxx, maxy, maxz]
+    :param MinBox:      [144 * 192 * 192]
     :return:
     output  cropped volume
     """
+    input_shape = volume.shape  # volume 150 * 240 * 240
+
     # ensure we have at least a bounding box of size 16 * 128 * 128
     for i in range(3):
-        if max_idx[i] - min_idx[i] < MinBox[i]:
-            mid = (max_idx[i] + min_idx[i]) / 2
-            min_idx[i] = mid - MinBox[i]/2
-            max_idx[i] = mid + MinBox[i]/2
+        mid = (max_idx[i] + min_idx[i]) / 2
+        min_idx[i] = mid - MinBox[i]/2
+        max_idx[i] = mid + MinBox[i]/2
+
+        margin_max = max_idx[i] - input_shape[i]
+        if margin_max > 0:
+            max_idx[i] = max_idx[i] - (margin_max + 2)
+            min_idx[i] = min_idx[i] - (margin_max + 2)
+
+        margin_min = min_idx[i] - 0
+        if margin_min < 0:
+            max_idx[i] = max_idx[i] - margin_min + 2
+            min_idx[i] = min_idx[i] - margin_min + 2
+
+        if max_idx[i] - min_idx[i] != MinBox[i]:
+            max_idx[i] = min_idx[i] + MinBox[i]
 
     output = volume[np.ix_(range(min_idx[0], max_idx[0]),
                            range(min_idx[1], max_idx[1]),

@@ -36,9 +36,8 @@ class Brats15DataLoader(Dataset):
         self.data_dir = data_dir  #
         self.img_lists = []
         self.volume_size = 16
-        # self.box = [144, 192, 192]          # max 145
-        self.data_box = [144, 192, 192]      #
-        self.margin = 1
+        self.data_box = [144, 192, 192]      # max 145
+        self.margin = 0
         self.is_train = is_train        # True or False
 
         self.task_type = task_type    # whole tumor, tumor core,
@@ -113,7 +112,6 @@ class Brats15DataLoader(Dataset):
         # step1 ****** resize images and labels to 160 * 192 * 192 *******
         for i in range(len(multi_mode_imgs)):
             multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, self.data_box)
-            # multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, self.data_box)
             multi_mode_imgs[i] = normalize_one_volume(multi_mode_imgs[i])
         label = crop_with_box(label, bbmin, bbmax, self.data_box)
 
@@ -126,7 +124,7 @@ class Brats15DataLoader(Dataset):
             label = get_whole_tumor_labels(label)
             # for whole tumor task, bouding box is self
             bbmin = [0, 0, 0]
-            bbmax = [label.shape[0] - 1, label.shape[1] - 1, label.shape[2] - 1]
+            bbmax = [label.shape[0], label.shape[1], label.shape[2]]
 
         elif self.task_type == 'tc':
             # for tumor core task, bounding box is the whole tumor box
