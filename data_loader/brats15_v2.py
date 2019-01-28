@@ -48,14 +48,14 @@ class Brats15DataLoader(Dataset):
         for data in train_config:
             self.img_lists.append(os.path.join(self.data_dir, data.strip('\n')))
 
-        print ('**** Loading data from disk ....')
+        print ('******** Loading data from disk ********')
         self.data = {}
         for subject in self.img_lists:
             if subject not in self.data:
                 self.data[subject] = self.get_subject(subject)
 
-        print ('**** Finish loading data ...')
-        print ('**** total number of subject is ' + str(len(self.data)))
+        print ('********  Finish loading data  ********')
+        print ('**** Total number of subject is ' + str(len(self.data)))
 
     def __len__(self):
         return len(self.img_lists)
@@ -115,7 +115,6 @@ class Brats15DataLoader(Dataset):
             multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, self.data_box)
             # multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, self.data_box)
             multi_mode_imgs[i] = normalize_one_volume(multi_mode_imgs[i])
-            print multi_mode_imgs[i].shape
         label = crop_with_box(label, bbmin, bbmax, self.data_box)
 
         # step2 ********* transfer images to different direction *********

@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,77 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="86" column="55" selection-start-line="86" selection-start-column="55" selection-end-line="86" selection-end-column="55" />
-              <folding>
-                <element signature="e#16#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1161">
+            <state relative-caret-position="-2340">
               <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.txt">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="brats15_v2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/brats15_v2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-              <folding>
-                <element signature="e#5385#6045#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="img_t2_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="img_t1c_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="img_t1_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="img_flair_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="label_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/label_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="brats15.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-              <folding>
-                <element signature="e#274#283#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -611,19 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="e#274#283#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -649,6 +563,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+          <folding>
+            <element signature="e#274#283#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/brats15_v2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-16">
@@ -659,9 +583,12 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1161">
+        <state relative-caret-position="-2340">
           <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
         </state>
       </provider>
