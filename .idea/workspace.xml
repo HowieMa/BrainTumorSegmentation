@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/brats15_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/brats15_v2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +16,8 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-424">
-              <caret line="210" column="72" selection-start-line="210" selection-start-column="72" selection-end-line="210" selection-end-column="72" />
+            <state relative-caret-position="303">
+              <caret line="196" column="7" lean-forward="true" selection-start-line="196" selection-start-column="7" selection-end-line="196" selection-end-column="7" />
               <folding>
                 <element signature="e#16#40#0" expanded="true" />
               </folding>
@@ -42,11 +35,14 @@
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file leaf-file-name="train15.conf" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/train15.conf">
+      <file leaf-file-name="test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" selection-start-line="10" selection-end-line="10" selection-end-column="24" />
+            <state relative-caret-position="347">
+              <caret line="47" column="16" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -69,8 +65,8 @@
       <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="101" column="38" lean-forward="true" selection-start-line="101" selection-start-column="38" selection-end-line="101" selection-end-column="38" />
+            <state relative-caret-position="160">
+              <caret line="95" column="65" selection-start-line="95" selection-start-column="65" selection-end-line="95" selection-end-column="65" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -82,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/model/multi_unet.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="125" column="23" lean-forward="true" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="23" />
+              <caret line="125" column="23" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="23" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
                 <element signature="e#148#962#0" />
@@ -97,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/data_loader/brats15_v2.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1307">
-              <caret line="192" lean-forward="true" selection-start-line="192" selection-end-line="192" />
+              <caret line="192" selection-start-line="192" selection-end-line="192" />
             </state>
           </provider>
         </entry>
@@ -166,8 +162,8 @@
         <option value="$PROJECT_DIR$/data_loader/brats15.py" />
         <option value="$PROJECT_DIR$/model/multi_unet.py" />
         <option value="$PROJECT_DIR$/data_loader/brats15_v2.py" />
-        <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/src/utils.py" />
+        <option value="$PROJECT_DIR$/train.py" />
       </list>
     </option>
   </component>
@@ -186,21 +182,6 @@
             <path>
               <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
               <item name="BrainTumorSegmentation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BrainTumorSegmentation" type="462c0819:PsiDirectoryNode" />
-              <item name="ckpt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BrainTumorSegmentation" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="BrainTumorSegmentation" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="BrainTumorSegmentation" type="b2602c69:ProjectViewProjectNode" />
@@ -570,16 +551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
@@ -610,7 +581,7 @@
     <entry file="file://$PROJECT_DIR$/model/multi_unet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="125" column="23" lean-forward="true" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="23" />
+          <caret line="125" column="23" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="23" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
             <element signature="e#148#962#0" />
@@ -638,24 +609,34 @@
     <entry file="file://$PROJECT_DIR$/data_loader/brats15_v2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1307">
-          <caret line="192" lean-forward="true" selection-start-line="192" selection-end-line="192" />
+          <caret line="192" selection-start-line="192" selection-end-line="192" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-424">
-          <caret line="210" column="72" selection-start-line="210" selection-start-column="72" selection-end-line="210" selection-end-column="72" />
+        <state relative-caret-position="303">
+          <caret line="196" column="7" lean-forward="true" selection-start-line="196" selection-start-column="7" selection-end-line="196" selection-end-column="7" />
           <folding>
             <element signature="e#16#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="47" column="16" selection-start-line="47" selection-start-column="12" selection-end-line="47" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="101" column="38" lean-forward="true" selection-start-line="101" selection-start-column="38" selection-end-line="101" selection-end-column="38" />
+        <state relative-caret-position="160">
+          <caret line="95" column="65" selection-start-line="95" selection-start-column="65" selection-end-line="95" selection-end-column="65" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

@@ -89,15 +89,23 @@ def run():
                 loss_train.backward()
                 optimizer.step()
 
+            # ****** save image of step 0 for each epoch ******
+            if step == 0:
+                predicts = F.softmax(predicts, dim=1)
+                # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
+                predicts = (predicts[:, 1, :, :, :] > 0.5).long()
+                # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
+                save_train_slice(images, predicts, labels[:, 0, :, :, :], epoch, save_dir=save_dir + model + '/')
+
         # ***************** calculate test loss *****************
         print 'test ....'
         net.eval()
         for step, (images_vol, labels_vol, subject) in enumerate(test_dataset):
             for i in range(len(images_vol)):  # 144/16 = 9
                 images = Variable(images_vol[i].cuda() if cuda_available else images_vol[i])
-                # 5D tensor   Batch_Size * 4(modal) * 144 * 192 * 192
+                # 5D tensor   Batch_Size * 4(modal) * 16 * 192 * 192
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
-                # 5D tensor   Batch_Size * 1        * 144 * 192 * 192
+                # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
 
                 predicts = net(images)
                 # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weight
@@ -111,10 +119,6 @@ def run():
 
                 d = dice(predicts, labels[:, 0, :, :, :].long())
                 test_dice.append(d)
-
-            # ****** save image of step 0 for each epoch ******
-            if step == 0:
-                save_train_slice(images, predicts, labels[:, 0, :, :, :], epoch, save_dir=save_dir + model + '/')
 
         # **************** save loss for one batch ****************
         print 'train_loss ' + str(sum(train_loss)/ (len(train_loss) * 1.0))
