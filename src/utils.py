@@ -191,8 +191,8 @@ def Dice(predict, label):
 def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
     """
     :param images:      5D tensor Batch_Size * 4(modal)  * 16(volume_size) * height * weight
-    :param predicts:    5D tensor Batch_Size * 2(onehot) * 16(volume_size) * height * weight
-    :param labels:      5D tensor Batch_Size * 1         * 16(volume_size) * height * weight
+    :param predicts:    4D Long tensor Batch_Size  * 16(volume_size) * height * weight
+    :param labels:      4D Long tensor Batch_Size  * 16(volume_size) * height * weight
     :return:
     """
     slice = 1
@@ -204,13 +204,11 @@ def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
         os.mkdir(save_dir + 'epoch' + str(epoch))
 
     for b in range(images.shape[0]):  # for each batch
-        output = np.zeros((192, 192 * 6))  # H, W
+        output = np.zeros((192, 200 * 6))  # H, W
         for m in range(4):              # for each modal
-            output[:, 192 * m: 192 * m + 192] = images[b, m, slice, :, :]
-
-        output[:, 192 * 4: 192 * 4 + 192] = predicts[b, 0, slice, :, :]
-        output[:, 192 * 5: 192 * 5 + 192] = labels[b, 0, slice, :, :]
-
+            output[:, 200 * m: 200 * m + 192] = norm(images[b, m, slice, :, :])
+        output[:, 200 * 4: 200 * 4 + 192] = norm(predicts[b, slice, :, :])
+        output[:, 200 * 5: 200 * 5 + 192] = norm(labels[b, slice, :, :])
         scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg', output)
 
 
@@ -230,10 +228,19 @@ def dice(predict, target):
     :param target:  4D Long Tensor Batch_Size * 16(volume_size) * height * weight
     :return:
     """
-    smooth = 0
+    smooth = 0.01
     batch_num = target.shape[0]
     target = target.view(batch_num, -1)
     predict = predict.view(batch_num, -1)
-    intersection = (target * predict).sum()
-    return (2.0 * intersection + smooth) / (predict.sum() + predict.sum() + smooth)
+    intersection = float((target * predict).sum())
+
+    return (2.0 * intersection + smooth) / (float(predict.sum())
+                                            + float(predict.sum()) + smooth)
+
+
+def norm(data):
+    data = np.asarray(data)
+    smax = np.max(data)
+    smin = np.min(data)
+    return (data - smin) / (smax - smin)
 

@@ -89,10 +89,6 @@ def run():
                 loss_train.backward()
                 optimizer.step()
 
-            # ****** save image of step 0 for each epoch ******
-            if step == 0:
-                save_train_slice(images, predicts, labels, epoch, save_dir=save_dir + model + '/')
-
         # ***************** calculate test loss *****************
         print 'test ....'
         net.eval()
@@ -109,17 +105,25 @@ def run():
                 test_loss.append(float(loss_test))
 
                 predicts = F.softmax(predicts, dim=1)
-                # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weight
-                predicts = (predicts[:, 0, :, :, :] > 0.5).long()
-                # 4D Long tensor   Batch_Size * 16(volume_size) * height * weight
+                # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
+                predicts = (predicts[:, 1, :, :, :] > 0.5).long()
+                # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
 
                 d = dice(predicts, labels[:, 0, :, :, :].long())
                 test_dice.append(d)
 
+            # ****** save image of step 0 for each epoch ******
+            if step == 0:
+                save_train_slice(images, predicts, labels[:, 0, :, :, :], epoch, save_dir=save_dir + model + '/')
+
         # **************** save loss for one batch ****************
+        print 'train_loss ' + str(sum(train_loss)/ (len(train_loss) * 1.0))
+        print 'test_loss ' + str(sum(test_loss) / (len(test_loss) * 1.0))
+        print 'test_dice ' + str(sum(test_dice) / (len(test_dice) * 1.0))
+
         log_train.write(str(sum(train_loss)/(len(train_loss) * 1.0)) + '\n')
         log_test.write(str(sum(test_loss) / (len(test_loss) * 1.0)) + '\n')
-        log_test.write(str(sum(test_dice) / (len(test_dice) * 1.0)) + '\n')
+        log_test_dice.write(str(sum(test_dice) / (len(test_dice) * 1.0)) + '\n')
 
         if sum(test_dice) / (len(test_dice) * 1.0) > best_dice:
             best_dice = sum(test_dice) / (len(test_dice) * 1.0)

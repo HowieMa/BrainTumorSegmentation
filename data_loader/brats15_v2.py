@@ -194,7 +194,8 @@ if __name__ =="__main__":
     print ('get sample of images')
     for i in range(4):
         sample_img = volume[0][i, slice, :, :]         # 128 * 128
-        print sample_img.shape                      # 128 * 128
+        sample_img = norm(sample_img)
+        print sample_img.shape  # 128 * 128
         scipy.misc.imsave('img/img_%s_wt.jpg' % ddd[i], sample_img)
 
     print ('get sample of labels')
