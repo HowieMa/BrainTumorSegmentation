@@ -228,14 +228,14 @@ def dice(predict, target):
     :param target:  4D Long Tensor Batch_Size * 16(volume_size) * height * weight
     :return:
     """
-    smooth = 0.01
+    smooth = 0.0001
     batch_num = target.shape[0]
     target = target.view(batch_num, -1)
     predict = predict.view(batch_num, -1)
     intersection = float((target * predict).sum())
 
     return (2.0 * intersection + smooth) / (float(predict.sum())
-                                            + float(predict.sum()) + smooth)
+                                            + float(target.sum()) + smooth)
 
 
 def norm(data):
