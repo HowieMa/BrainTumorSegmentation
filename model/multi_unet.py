@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 
 import math
-import torch.nn.functional as F
 import numpy as np
 
 
@@ -32,52 +31,12 @@ def croppCenter(tensorToCrop, finalShape):
            ]
 
 
-class Conv_residual_conv_Inception_Dilation(nn.Module):
-    def __init__(self, in_dim, out_dim, act_fn):
-        super(Conv_residual_conv_Inception_Dilation, self).__init__()
-        self.in_dim = in_dim
-        self.out_dim = out_dim
-        act_fn = act_fn
-
-        self.conv_1 = conv_block3D(self.in_dim, self.out_dim, act_fn)
-        self.conv_2_1 = conv_block3D(self.out_dim, self.out_dim, act_fn, kernel_size=1, stride=1, padding=0, dilation=1)
-        self.conv_2_2 = conv_block3D(self.out_dim, self.out_dim, act_fn, kernel_size=3, stride=1, padding=1, dilation=1)
-        self.conv_2_3 = conv_block3D(self.out_dim, self.out_dim, act_fn, kernel_size=5, stride=1, padding=2, dilation=1)
-        self.conv_2_4 = conv_block3D(self.out_dim, self.out_dim, act_fn, kernel_size=3, stride=1, padding=2, dilation=2)
-        self.conv_2_5 = conv_block3D(self.out_dim, self.out_dim, act_fn, kernel_size=3, stride=1, padding=4, dilation=4)
-
-        self.conv_2_output = conv_block3D(self.out_dim * 5, self.out_dim, act_fn, kernel_size=1, stride=1, padding=0,
-                                        dilation=1)
-
-        self.conv_3 = conv_block3D(self.out_dim, self.out_dim, act_fn)
-
-    def forward(self, input):
-        """
-        3D Inception module
-        :param input:
-        :return:
-        """
-        conv_1 = self.conv_1(input)
-
-        conv_2_1 = self.conv_2_1(conv_1)
-        conv_2_2 = self.conv_2_2(conv_1)
-        conv_2_3 = self.conv_2_3(conv_1)
-        conv_2_4 = self.conv_2_4(conv_1)
-        conv_2_5 = self.conv_2_5(conv_1)
-
-        out1 = torch.cat([conv_2_1, conv_2_2, conv_2_3, conv_2_4, conv_2_5], 1)
-        out1 = self.conv_2_output(out1)
-
-        conv_3 = self.conv_3(out1 + conv_1)
-        return conv_3
-
-
 class Multi_Unet(nn.Module):
 
     def __init__(self, input_nc, output_nc, ngf=32):
         super(Multi_Unet, self).__init__()
         print('~' * 50)
-        print(' ----- Creating FUSION_NET HD (Assymetric) network...')
+        print(' ----- Creating MULTI_UNET  ...')
         print('~' * 50)
 
         self.in_dim = input_nc
@@ -129,6 +88,7 @@ class Multi_Unet(nn.Module):
         self.bridge = ConvBlock3d(self.out_dim * 60, self.out_dim * 16)
 
         # ~~~ Decoding Path ~~~~~~ #
+
         self.upLayer1 = UpBlock(self.out_dim * 16, self.out_dim * 8)
         self.upLayer2 = UpBlock(self.out_dim * 8, self.out_dim * 4)
         self.upLayer3 = UpBlock(self.out_dim * 4, self.out_dim * 2)
@@ -137,7 +97,6 @@ class Multi_Unet(nn.Module):
         self.out = nn.Conv3d(self.out_dim, self.final_out_dim, kernel_size=3, stride=1, padding=1)
 
         # Params initialization
-
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
@@ -150,7 +109,6 @@ class Multi_Unet(nn.Module):
 
         # ############################# #
         # ~~~~~~ Encoding path ~~~~~~~  #
-
         i0 = input[:, 0:1, :, :, :]   # Batch Size * 1 * volume_size * height * width
         i1 = input[:, 1:2, :, :, :]
         i2 = input[:, 2:3, :, :, :]
@@ -252,26 +210,17 @@ class Multi_Unet(nn.Module):
 
         # ############################# #
         # ~~~~~~ Decoding path ~~~~~~~  #
+        skip_1 = (down_4_0 + down_4_1 + down_4_2 + down_4_3) / 4.0
+        skip_2 = (down_3_0 + down_3_1 + down_3_2 + down_3_3) / 4.0
+        skip_3 = (down_2_0 + down_2_1 + down_2_2 + down_2_3) / 4.0
+        skip_4 = (down_1_0 + down_1_1 + down_1_2 + down_1_3) / 4.0
 
-        deconv_1 = self.deconv_1(bridge)
-        skip_1 = (deconv_1 + down_4_0 + down_4_1 + down_4_2 + down_4_3) / 5  # Residual connection
-        up_1 = self.up_1(skip_1)
+        x = self.upLayer1(bridge, skip_1)
+        x = self.upLayer2(x, skip_2)
+        x = self.upLayer3(x, skip_3)
+        x = self.upLayer4(x, skip_4)
 
-        deconv_2 = self.deconv_2(up_1)
-        skip_2 = (deconv_2 + down_3_0 + down_3_1 + down_3_2 + down_3_3) / 5  # Residual connection
-        up_2 = self.up_2(skip_2)
-
-        deconv_3 = self.deconv_3(up_2)
-        skip_3 = (deconv_3 + down_2_0 + down_2_1 + down_2_2 + down_2_3) / 5  # Residual connection
-        up_3 = self.up_3(skip_3)
-
-        deconv_4 = self.deconv_4(up_3)
-        skip_4 = (deconv_4 + down_1_0 + down_1_1 + down_1_2 + down_1_3) / 5  # Residual connection
-        up_4 = self.up_4(skip_4)
-
-        # Last output
-        # return F.softmax(self.out(up_4))
-        return self.out(up_4)
+        return self.out(x)
 
 
 class ConvBlock3d(nn.Module):
@@ -323,27 +272,6 @@ class UpBlock(nn.Module):
         return x
 
 
-def conv_block3D(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, dilation=1):
-    model = nn.Sequential(
-        nn.Conv3d(in_dim, out_dim, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation),
-        nn.BatchNorm3d(out_dim),
-        act_fn,
-    )
-    return model
-
-
-
-
-# TODO: Change order of block: BN + Activation + Conv
-def conv_decod_block3D(in_dim, out_dim, act_fn):
-    model = nn.Sequential(
-        nn.ConvTranspose3d(in_dim, out_dim, kernel_size=3, stride=2, padding=1, output_padding=1),
-        nn.BatchNorm3d(out_dim),
-        act_fn,
-    )
-    return model
-
-
 def maxpool():
     pool = nn.MaxPool3d(kernel_size=2, stride=2, padding=0)
     return pool
@@ -351,7 +279,7 @@ def maxpool():
 
 if __name__ == "__main__":
     batch_size = 2
-    num_classes = 2
+    num_classes = 2 # one hot
     initial_kernels = 32
 
     net = Multi_Unet(1, num_classes, initial_kernels)
