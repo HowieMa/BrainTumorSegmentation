@@ -72,6 +72,53 @@ class Conv_residual_conv_Inception_Dilation(nn.Module):
         return conv_3
 
 
+class Conv_residual_conv_Inception_Dilation_asymmetric(nn.Module):
+
+    def __init__(self, in_dim, out_dim, act_fn):
+        super(Conv_residual_conv_Inception_Dilation_asymmetric, self).__init__()
+        self.in_dim = in_dim
+        self.out_dim = out_dim
+        act_fn = act_fn
+
+        self.conv_1 = conv_block3D(self.in_dim, self.out_dim, act_fn)
+
+        self.conv_2_1 = conv_block_Asym_Inception3D(self.out_dim, self.out_dim, act_fn, kernel_size=1, stride=1,
+                                                  padding=0, dilation=1)
+        self.conv_2_2 = conv_block_Asym_Inception3D(self.out_dim, self.out_dim, act_fn, kernel_size=3, stride=1,
+                                                  padding=1, dilation=1)
+        self.conv_2_3 = conv_block_Asym_Inception3D(self.out_dim, self.out_dim, act_fn, kernel_size=5, stride=1,
+                                                  padding=2, dilation=1)
+        self.conv_2_4 = conv_block_Asym_Inception3D(self.out_dim, self.out_dim, act_fn, kernel_size=3, stride=1,
+                                                  padding=2, dilation=2)
+        self.conv_2_5 = conv_block_Asym_Inception3D(self.out_dim, self.out_dim, act_fn, kernel_size=3, stride=1,
+                                                  padding=4, dilation=4)
+
+        self.conv_2_output = conv_block3D(self.out_dim * 5, self.out_dim, act_fn, kernel_size=1, stride=1, padding=0,
+                                        dilation=1)
+
+        self.conv_3 = conv_block3D(self.out_dim, self.out_dim, act_fn)
+
+    def forward(self, input):
+        """
+
+        :param input: 5D Tensor
+        :return:
+        """
+        conv_1 = self.conv_1(input)
+
+        conv_2_1 = self.conv_2_1(conv_1)
+        conv_2_2 = self.conv_2_2(conv_1)
+        conv_2_3 = self.conv_2_3(conv_1)
+        conv_2_4 = self.conv_2_4(conv_1)
+        conv_2_5 = self.conv_2_5(conv_1)
+
+        out1 = torch.cat([conv_2_1, conv_2_2, conv_2_3, conv_2_4, conv_2_5], 1)
+        out1 = self.conv_2_output(out1)
+
+        conv_3 = self.conv_3(out1 + conv_1)
+        return conv_3
+
+
 class Multi_Unet(nn.Module):
 
     def __init__(self, input_nc, output_nc, ngf=32):
@@ -84,55 +131,66 @@ class Multi_Unet(nn.Module):
         self.out_dim = ngf
         self.final_out_dim = output_nc
 
+        act_fn = nn.ReLU()
+
+        act_fn_2 = nn.ReLU()
+
         # ~~~ Encoding Paths ~~~~~~ #
-        # Encoder (Modality 1) Flair 1
-        self.down_1_0 = ConvBlock3d(self.in_dim, self.out_dim)
+        # Encoder (Modality 1)
+        self.down_1_0 = Conv_residual_conv_Inception_Dilation_asymmetric(self.in_dim, self.out_dim, act_fn)
         self.pool_1_0 = maxpool()
-        self.down_2_0 = ConvBlock3d(self.out_dim * 4, self.out_dim * 2)
+        self.down_2_0 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 4, self.out_dim * 2, act_fn)
         self.pool_2_0 = maxpool()
-        self.down_3_0 = ConvBlock3d(self.out_dim * 12, self.out_dim * 4)
+        self.down_3_0 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 12, self.out_dim * 4, act_fn)
         self.pool_3_0 = maxpool()
-        self.down_4_0 = ConvBlock3d(self.out_dim * 28, self.out_dim * 8)
+        self.down_4_0 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 28, self.out_dim * 8, act_fn)
         self.pool_4_0 = maxpool()
 
-        # Encoder (Modality 2) T1
-        self.down_1_1 = ConvBlock3d(self.in_dim, self.out_dim)
+        # Encoder (Modality 2)
+        self.down_1_1 = Conv_residual_conv_Inception_Dilation_asymmetric(self.in_dim, self.out_dim, act_fn)
         self.pool_1_1 = maxpool()
-        self.down_2_1 = ConvBlock3d(self.out_dim * 4, self.out_dim * 2)
+        self.down_2_1 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 4, self.out_dim * 2, act_fn)
         self.pool_2_1 = maxpool()
-        self.down_3_1 = ConvBlock3d(self.out_dim * 12, self.out_dim * 4)
+        self.down_3_1 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 12, self.out_dim * 4, act_fn)
         self.pool_3_1 = maxpool()
-        self.down_4_1 = ConvBlock3d(self.out_dim * 28, self.out_dim * 8)
+        self.down_4_1 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 28, self.out_dim * 8, act_fn)
         self.pool_4_1 = maxpool()
 
-        # Encoder (Modality 3) T1c
-        self.down_1_2 = ConvBlock3d(self.in_dim, self.out_dim)
+        # Encoder (Modality 3)
+        self.down_1_2 = Conv_residual_conv_Inception_Dilation_asymmetric(self.in_dim, self.out_dim, act_fn)
         self.pool_1_2 = maxpool()
-        self.down_2_2 = ConvBlock3d(self.out_dim * 4, self.out_dim * 2)
+        self.down_2_2 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 4, self.out_dim * 2, act_fn)
         self.pool_2_2 = maxpool()
-        self.down_3_2 = ConvBlock3d(self.out_dim * 12, self.out_dim * 4)
+        self.down_3_2 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 12, self.out_dim * 4, act_fn)
         self.pool_3_2 = maxpool()
-        self.down_4_2 = ConvBlock3d(self.out_dim * 28, self.out_dim * 8)
+        self.down_4_2 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 28, self.out_dim * 8, act_fn)
         self.pool_4_2 = maxpool()
 
-        # Encoder (Modality 4) T2
-        self.down_1_3 = ConvBlock3d(self.in_dim, self.out_dim)
+        # Encoder (Modality 4)
+        self.down_1_3 = Conv_residual_conv_Inception_Dilation_asymmetric(self.in_dim, self.out_dim, act_fn)
         self.pool_1_3 = maxpool()
-        self.down_2_3 = ConvBlock3d(self.out_dim * 4, self.out_dim * 2)
+        self.down_2_3 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 4, self.out_dim * 2, act_fn)
         self.pool_2_3 = maxpool()
-        self.down_3_3 = ConvBlock3d(self.out_dim * 12, self.out_dim * 4)
+        self.down_3_3 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 12, self.out_dim * 4, act_fn)
         self.pool_3_3 = maxpool()
-        self.down_4_3 = ConvBlock3d(self.out_dim * 28, self.out_dim * 8)
+        self.down_4_3 = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 28, self.out_dim * 8, act_fn)
         self.pool_4_3 = maxpool()
 
         # Bridge between Encoder-Decoder
-        self.bridge = ConvBlock3d(self.out_dim * 60, self.out_dim * 16)
+        self.bridge = Conv_residual_conv_Inception_Dilation_asymmetric(self.out_dim * 60, self.out_dim * 16, act_fn)
 
         # ~~~ Decoding Path ~~~~~~ #
-        self.upLayer1 = UpBlock(self.out_dim * 16, self.out_dim * 8)
-        self.upLayer2 = UpBlock(self.out_dim * 8, self.out_dim * 4)
-        self.upLayer3 = UpBlock(self.out_dim * 4, self.out_dim * 2)
-        self.upLayer4 = UpBlock(self.out_dim * 2, self.out_dim * 1)
+        self.deconv_1 = conv_decod_block3D(self.out_dim * 16, self.out_dim * 8, act_fn_2)
+        self.up_1 = Conv_residual_conv_Inception_Dilation(self.out_dim * 8, self.out_dim * 8, act_fn_2)
+
+        self.deconv_2 = conv_decod_block3D(self.out_dim * 8, self.out_dim * 4, act_fn_2)
+        self.up_2 = Conv_residual_conv_Inception_Dilation(self.out_dim * 4, self.out_dim * 4, act_fn_2)
+
+        self.deconv_3 = conv_decod_block3D(self.out_dim * 4, self.out_dim * 2, act_fn_2)
+        self.up_3 = Conv_residual_conv_Inception_Dilation(self.out_dim * 2, self.out_dim * 2, act_fn_2)
+
+        self.deconv_4 = conv_decod_block3D(self.out_dim * 2, self.out_dim, act_fn_2)
+        self.up_4 = Conv_residual_conv_Inception_Dilation(self.out_dim, self.out_dim, act_fn_2)
 
         self.out = nn.Conv3d(self.out_dim, self.final_out_dim, kernel_size=3, stride=1, padding=1)
 
@@ -142,6 +200,8 @@ class Multi_Unet(nn.Module):
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2. / n))
+                # init.xavier_uniform(m.weight.data)
+                # init.xavier_uniform(m.bias.data)
             elif isinstance(m, nn.BatchNorm2d):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
@@ -274,55 +334,6 @@ class Multi_Unet(nn.Module):
         return self.out(up_4)
 
 
-class ConvBlock3d(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(ConvBlock3d, self).__init__()
-
-        self.conv1 = nn.Sequential(
-            nn.Conv3d(in_ch, out_ch, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm3d(out_ch),
-            nn.ReLU(inplace=True),
-        )
-
-        self.conv2 = nn.Sequential(
-            nn.Conv3d(out_ch, out_ch, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm3d(out_ch),
-            nn.ReLU(inplace=True),
-        )
-
-    def forward(self, x):
-        x = self.conv1(x)
-        x = self.conv2(x)
-        return x
-
-
-class ConvTrans3d(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(ConvTrans3d, self).__init__()
-        self.conv1 = nn.Sequential(
-            nn.ConvTranspose3d(in_ch, out_ch, kernel_size=3, stride=2, padding=1, output_padding=1, dilation=1),
-            nn.BatchNorm3d(out_ch),
-            nn.ReLU(inplace=True),
-        )
-
-    def forward(self, x):
-        x = self.conv1(x)
-        return x
-
-
-class UpBlock(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(UpBlock, self).__init__()
-        self.up_conv = ConvTrans3d(in_ch, out_ch)
-        self.conv = ConvBlock3d(2 * out_ch, out_ch)
-
-    def forward(self, x, down_features):
-        x = self.up_conv(x)
-        x = torch.cat([x, down_features], dim=1)
-        x = self.conv(x)
-        return x
-
-
 def conv_block3D(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, dilation=1):
     model = nn.Sequential(
         nn.Conv3d(in_dim, out_dim, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation),
@@ -332,6 +343,18 @@ def conv_block3D(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, di
     return model
 
 
+def conv_block_Asym_Inception3D(in_dim, out_dim, act_fn, kernel_size=3, stride=1, padding=1, dilation=1):
+    model = nn.Sequential(
+        nn.Conv3d(in_dim, out_dim, kernel_size=[kernel_size, kernel_size, 1],
+                  padding=tuple([padding, padding, 0]), dilation=(dilation,dilation, 1)),
+        nn.BatchNorm3d(out_dim),
+        nn.ReLU(),
+        nn.Conv3d(out_dim, out_dim, kernel_size=[1, kernel_size, kernel_size],
+                  padding=tuple([0, padding, padding]), dilation=(1, dilation, dilation)),
+        nn.BatchNorm3d(out_dim),
+        nn.ReLU(),
+    )
+    return model
 
 
 # TODO: Change order of block: BN + Activation + Conv

@@ -26,7 +26,7 @@ class UNet3D(nn.Module):
         self.upLayer3 = UpBlock(chs[2], chs[1])
         self.upLayer4 = UpBlock(chs[1], chs[0])
 
-        self.outLayer = ConvBlock3d(chs[0], out_ch)
+        self.outLayer = nn.Conv3d(chs[0], out_ch, kernel_size=3, stride=1, padding=1)
 
     def forward(self, x):
         x1 = self.downLayer1(x)
@@ -97,7 +97,7 @@ class UpBlock(nn.Module):
 if __name__ == "__main__":
     net = UNet3D(4, 2)
 
-    x = torch.randn(2, 4, 16, 64, 64)  # batch size = 2
+    x = torch.randn(2, 4, 16, 192, 192)  # batch size = 2
     print ('input data')
     print (x.shape)
 
