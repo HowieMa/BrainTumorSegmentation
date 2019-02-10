@@ -284,7 +284,7 @@ if __name__ == "__main__":
 
     net = Multi_Unet(1, num_classes, initial_kernels)
 
-    MRI = torch.randn(batch_size, 4, 16, 64, 64)    # Batchsize, modal, hight,
+    MRI = torch.randn(batch_size, 4, 16, 192, 192)    # Batchsize, modal, hight,
 
     if torch.cuda.is_available():
         net = net.cuda()
