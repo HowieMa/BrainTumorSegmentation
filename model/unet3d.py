@@ -72,14 +72,14 @@ if __name__ == "__main__":
     x = torch.randn(4, 4, 16, 192, 192)  # batch size = 2
     print ('input data')
     print (x.shape)
-
-    if torch.cuda.is_available():
-        net = net.cuda()
-        x = x.cuda()
-
-    y = net(x)
-    print ('output data')
-    print (y.shape)  # (2, 2, 16, 64, 64)
+    #
+    # if torch.cuda.is_available():
+    #     net = net.cuda()
+    #     x = x.cuda()
+    #
+    # y = net(x)
+    # print ('output data')
+    # print (y.shape)  # (2, 2, 16, 64, 64)
 
 
 

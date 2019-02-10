@@ -184,24 +184,29 @@ if __name__ =="__main__":
     print len(volume)
 
     print ('image size ......')
-    print (volume[0].shape)             # (4, 16, 128, 128)
+    print (volume[0].shape)             # (4, 16, 192, 192)
 
     print ('label size ......')
-    print (labels[0].shape)             # (1, 16, 128, 128)
+    print (labels[0].shape)             # (1, 16, 192, 192)
 
     print subjct
 
     print ('get sample of images')
     for i in range(4):
-        sample_img = volume[0][i, slice, :, :]         # 128 * 128
+        sample_img = volume[0][i, slice, :, :]         # 192 * 192
         sample_img = norm(sample_img)
-        print sample_img.shape  # 128 * 128
-        scipy.misc.imsave('img/img_%s_wt.jpg' % ddd[i], sample_img)
+        out = np.zeros((192, 200))
+        out[:, :96] = sample_img[:,:96]
+        out[:, 100:196] = sample_img[:, 96:]
+        scipy.misc.imsave('img/img_%s_wt.jpg' % ddd[i], out)
 
     print ('get sample of labels')
-    sample_label = labels[0][0, slice, :, :]           # 128 * 128
+    sample_label = labels[0][0, slice, :, :]           # 192 * 192
     print sample_label.shape
-    scipy.misc.imsave('img/label_wt.jpg', sample_label)
+    label = np.ones((192, 200))
+    label[:, :96] = sample_label[:,:96]
+    label[:, 100:196] = sample_label[:, 96:]
+    scipy.misc.imsave('img/label_wt.jpg', label)
 
 
 

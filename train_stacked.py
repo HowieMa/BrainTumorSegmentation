@@ -80,7 +80,7 @@ def run():
                 predicts = net(images)
                 # 6D tensor   Batch_Size * 4 * 2 * 16(volume_size) * height * weight
                 loss_train = 0
-                for i in range(4):
+                for k in range(4):
                     loss_train += criterion(predicts[:, i, :, :, :, :], labels[:, 0, :, :, :].long())
 
                 train_loss.append(float(loss_train))
@@ -106,11 +106,16 @@ def run():
                 # 5D tensor   Batch_Size * 4(modal) * 16 * 192 * 192
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
                 # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
+
+                
+
                 predicts = net(images)
                 # # 6D tensor   Batch_Size * 4 * 2 * 16(volume_size) * height * weight
 
+
+
                 loss_test = 0
-                for i in range(4):
+                for k in range(4):
                     loss_test += criterion(predicts[:, i, :, :, :, :], labels[:, 0, :, :, :].long())
 
                 test_loss.append(float(loss_test))

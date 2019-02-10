@@ -83,23 +83,26 @@ def run():
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
                 # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
 
-                optimizer.zero_grad()
-                predicts = net(images)
-                # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weigh
-                loss_train = criterion(predicts, labels[:, 0, :, :, :].long())
-                train_loss.append(float(loss_train))
-                loss_train.backward()
-                optimizer.step()
+                for k in range(2):      # left and right brain
+                    im = images[:, :, :, :, 96 * k:96 * k + 96]   # B * 1 * 16 * 192 * 96
+                    lbl = labels[:, :, :, :, 96 * k:96 * k + 96]  # B * 1 * 16 * 192 * 96
+                    optimizer.zero_grad()
+                    predicts = net(im)      # 5D tensor  B * 2 * 16 * 192 * 96
+                    loss_train = criterion(predicts, lbl[:, 0, :, :, :].long())
+                    train_loss.append(float(loss_train))
+                    loss_train.backward()
+                    optimizer.step()
 
-                predicts = F.softmax(predicts, dim=1)
-                # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
-                predicts = (predicts[:, 1, :, :, :] > 0.5).long()
-                # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
-                d = dice(predicts, labels[:, 0, :, :, :].long())
-                train_dice.append(d)
-            # ****** save image of step 0 for each epoch ******
-            if step == 0:
-                save_train_slice(images, predicts, labels[:, 0, :, :, :], epoch, save_dir=save_dir + model + '/')
+                    predicts = F.softmax(predicts, dim=1)
+                    # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
+                    predicts = (predicts[:, 1, :, :, :] > 0.5).long()
+                    # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
+                    d = dice(predicts, labels[:, 0, :, :, :].long())
+                    train_dice.append(d)
+
+                # ****** save image of step 0 for each epoch ******
+                # if step == 0:
+                #     save_train_slice(im, predicts, lbl[:, 0, :, :, :], epoch, save_dir=save_dir + model + '/')
 
         # ***************** calculate test loss *****************
         print 'test ....'
@@ -111,17 +114,21 @@ def run():
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
                 # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
 
-                predicts = net(images)
-                # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weight
-                loss_test = criterion(predicts, labels[:, 0, :, :, :].long())
-                test_loss.append(float(loss_test))
+                for k in range(2):
+                    im = images[:, :, :, :, 96 * k:96 * k + 96]   # B * 1 * 16 * 192 * 96
+                    lbl = labels[:, :, :, :, 96 * k:96 * k + 96]  # B * 1 * 16 * 192 * 96
 
-                predicts = F.softmax(predicts, dim=1)
-                # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
-                predicts = (predicts[:, 1, :, :, :] > 0.5).long()
-                # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
-                d = dice(predicts, labels[:, 0, :, :, :].long())
-                test_dice.append(d)
+                    predicts = net(im)
+                    # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weight
+                    loss_test = criterion(predicts, lbl[:, 0, :, :, :].long())
+                    test_loss.append(float(loss_test))
+
+                    predicts = F.softmax(predicts, dim=1)
+                    # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
+                    predicts = (predicts[:, 1, :, :, :] > 0.5).long()
+                    # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
+                    d = dice(predicts, labels[:, 0, :, :, :].long())
+                    test_dice.append(d)
 
         # **************** save loss for one batch ****************
         print 'train_loss ' + str(sum(train_loss) / (len(train_loss) * 1.0))
