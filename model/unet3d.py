@@ -1,12 +1,18 @@
+from backbone import *
+from src.utils import *
+
 import torch
 import torch.nn as nn
+import math
 
 
 class UNet3D(nn.Module):
-    def __init__(self, in_ch, out_ch, degree=1):
+    def __init__(self, in_ch=4, out_ch=2, degree=16):
         super(UNet3D, self).__init__()
 
-        chs = [4, 8, 16, 32, 64] * degree
+        chs = []
+        for i in range(5):
+            chs.append((2 ** i) * degree)
 
         self.downLayer1 = ConvBlock3d(in_ch, chs[0])
         self.downLayer2 = nn.Sequential(nn.MaxPool3d(kernel_size=2, stride=2, padding=0),
@@ -28,76 +34,42 @@ class UNet3D(nn.Module):
 
         self.outLayer = nn.Conv3d(chs[0], out_ch, kernel_size=3, stride=1, padding=1)
 
-    def forward(self, x):
-        x1 = self.downLayer1(x)
-        x2 = self.downLayer2(x1)
-        x3 = self.downLayer3(x2)
-        x4 = self.downLayer4(x3)
-        x5 = self.bottomLayer(x4)
-
-        x = self.upLayer1(x5, x4)
-        x = self.upLayer2(x, x3)
-        x = self.upLayer3(x, x2)
-        x = self.upLayer4(x, x1)
-
-        x = self.outLayer(x)
-        return x
-
-
-class ConvBlock3d(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(ConvBlock3d, self).__init__()
-
-        self.conv1 = nn.Sequential(
-            nn.Conv3d(in_ch, out_ch, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm3d(out_ch),
-            nn.LeakyReLU(0.2, inplace=True)
-        )
-
-        self.conv2 = nn.Sequential(
-            nn.Conv3d(out_ch, out_ch, kernel_size=3, stride=1, padding=1),
-            nn.BatchNorm3d(out_ch),
-            nn.LeakyReLU(0.2, inplace=True)
-        )
+        # Params initialization
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
 
     def forward(self, x):
-        x = self.conv1(x)
-        x = self.conv2(x)
-        return x
+        """
 
+        :param x:  5D Tensor BatchSize * 4(modal) * 16 * W * H
+        :return:
+        """
+        x1 = self.downLayer1(x)     # degree(32)   * 16    * W    * H
+        x2 = self.downLayer2(x1)    # degree(64)   * 16/2  * W/2  * H/2
+        x3 = self.downLayer3(x2)    # degree(128)  * 16/4  * W/4  * H/4
+        x4 = self.downLayer4(x3)    # degree(256)  * 16/8  * W/8  * H/8
 
-class ConvTrans3d(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(ConvTrans3d, self).__init__()
-        self.conv1 = nn.Sequential(
-            nn.ConvTranspose3d(in_ch, out_ch, kernel_size=3, stride=2, padding=1, output_padding=1, dilation=1),
-            nn.BatchNorm3d(out_ch),
-            nn.LeakyReLU(0.2, inplace=True)
-        )
+        x5 = self.bottomLayer(x4)   # degree(512)  * 16/16 * W/16 * H/16
 
-    def forward(self, x):
-        x = self.conv1(x)
-        return x
-
-
-class UpBlock(nn.Module):
-    def __init__(self, in_ch, out_ch):
-        super(UpBlock, self).__init__()
-        self.up_conv = ConvTrans3d(in_ch, out_ch)
-        self.conv = ConvBlock3d(2 * out_ch, out_ch)
-
-    def forward(self, x, down_features):
-        x = self.up_conv(x)
-        x = torch.cat([x, down_features], dim=1)
-        x = self.conv(x)
+        x = self.upLayer1(x5, x4)   # degree(256)  * 16/8 * W/8 * H/8
+        x = self.upLayer2(x, x3)    # degree(128)  * 16/4 * W/4 * H/4
+        x = self.upLayer3(x, x2)    # degree(64)   * 16/2 * W/2 * H/2
+        x = self.upLayer4(x, x1)    # degree(32)   * 16   * W   * H
+        x = self.outLayer(x)        # out_ch(2 )   * 16   * W   * H
         return x
 
 
 # test case
 if __name__ == "__main__":
-    net = UNet3D(4, 2)
+    net = UNet3D(4, 2, degree=32)
+    print"total parameter:" + str(netSize(net))     # 25893986
 
-    x = torch.randn(2, 4, 16, 192, 192)  # batch size = 2
+    x = torch.randn(4, 4, 16, 192, 192)  # batch size = 2
     print ('input data')
     print (x.shape)
 
@@ -107,7 +79,7 @@ if __name__ == "__main__":
 
     y = net(x)
     print ('output data')
-    print (y.shape)  # (4, 2, 16, 64, 64)
+    print (y.shape)  # (2, 2, 16, 64, 64)
 
 
 

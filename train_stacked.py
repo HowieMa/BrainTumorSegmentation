@@ -1,5 +1,4 @@
-from model.unet3d import UNet3D
-from model.multi_unet import Multi_Unet
+from model.stacked_unet3d import StackedUnet3D
 from src.utils import *
 from data_loader.brats15_v2 import Brats15DataLoader
 
@@ -24,20 +23,14 @@ save_dir = 'ckpt_'
 device_ids = [0, 1, 2, 3]       # multi-GPU
 cuda_available = torch.cuda.is_available()
 
-model = sys.argv[1]
-print model
+model = 'sunet'
 
 if not os.path.exists(save_dir + model + '/'):
     os.mkdir(save_dir + model + '/')
 
 # ******************** build model ********************
-if model == '3dunet':
-    net = UNet3D(in_ch=4, out_ch=2, degree=32)  # multi-modal =4, out binary classification one-hot
-elif model == 'multi_unet':
-    net = Multi_Unet(1, 2, 32)
-else:
-    exit('wrong model!')
 
+net = StackedUnet3D(in_ch=1, out_ch=2, degree=16)
 
 if cuda_available:
     net = net.cuda()
@@ -85,13 +78,16 @@ def run():
 
                 optimizer.zero_grad()
                 predicts = net(images)
-                # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weigh
-                loss_train = criterion(predicts, labels[:, 0, :, :, :].long())
+                # 6D tensor   Batch_Size * 4 * 2 * 16(volume_size) * height * weight
+                loss_train = 0
+                for i in range(4):
+                    loss_train += criterion(predicts[:, i, :, :, :, :], labels[:, 0, :, :, :].long())
+
                 train_loss.append(float(loss_train))
                 loss_train.backward()
                 optimizer.step()
 
-                predicts = F.softmax(predicts, dim=1)
+                predicts = F.softmax(predicts[:, 3, :, :, :, :], dim=1)
                 # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
                 predicts = (predicts[:, 1, :, :, :] > 0.5).long()
                 # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
@@ -110,13 +106,16 @@ def run():
                 # 5D tensor   Batch_Size * 4(modal) * 16 * 192 * 192
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
                 # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
-
                 predicts = net(images)
-                # 5D tensor   Batch_Size * 2 * 16(volume_size) * height * weight
-                loss_test = criterion(predicts, labels[:, 0, :, :, :].long())
+                # # 6D tensor   Batch_Size * 4 * 2 * 16(volume_size) * height * weight
+
+                loss_test = 0
+                for i in range(4):
+                    loss_test += criterion(predicts[:, i, :, :, :, :], labels[:, 0, :, :, :].long())
+
                 test_loss.append(float(loss_test))
 
-                predicts = F.softmax(predicts, dim=1)
+                predicts = F.softmax(predicts[:, 3, :, :, :, :], dim=1)
                 # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
                 predicts = (predicts[:, 1, :, :, :] > 0.5).long()
                 # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight

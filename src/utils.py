@@ -244,3 +244,15 @@ def norm(data):
     smin = np.min(data)
     return (data - smin) / (smax - smin)
 
+
+def netSize(net):
+    params = list(net.parameters())
+    k = 0
+    for i in params:
+        l = 1
+        for j in i.size():
+            l *= j
+        k = k + l
+    return k
+
+    print("total sum parameter:" + str(k))
