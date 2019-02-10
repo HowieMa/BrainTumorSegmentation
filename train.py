@@ -32,7 +32,7 @@ if not os.path.exists(save_dir + model + '/'):
 
 # ******************** build model ********************
 if model == '3dunet':
-    net = UNet3D(in_ch=4, out_ch=2, degree=32)  # multi-modal =4, out binary classification one-hot
+    net = UNet3D(in_ch=4, out_ch=2, degree=16)  # multi-modal =4, out binary classification one-hot
 elif model == 'multi_unet':
     net = Multi_Unet(1, 2, 32)
 else:
@@ -97,7 +97,7 @@ def run():
                     # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
                     predicts = (predicts[:, 1, :, :, :] > 0.5).long()
                     # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
-                    d = dice(predicts, labels[:, 0, :, :, :].long())
+                    d = dice(predicts, lbl[:, 0, :, :, :].long())
                     train_dice.append(d)
 
                 # ****** save image of step 0 for each epoch ******
@@ -127,7 +127,7 @@ def run():
                     # 5D float Tensor   Batch_Size * 2 * 16(volume_size) * height * weight
                     predicts = (predicts[:, 1, :, :, :] > 0.5).long()
                     # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
-                    d = dice(predicts, labels[:, 0, :, :, :].long())
+                    d = dice(predicts, lbl[:, 0, :, :, :].long())
                     test_dice.append(d)
 
         # **************** save loss for one batch ****************

@@ -66,8 +66,8 @@ class UNet3D(nn.Module):
 
 # test case
 if __name__ == "__main__":
-    net = UNet3D(4, 2, degree=32)
-    print"total parameter:" + str(netSize(net))     # 25893986
+    net = UNet3D(4, 2, degree=16)
+    print"total parameter:" + str(netSize(net))     # 6477362 25MB
 
     x = torch.randn(4, 4, 16, 192, 192)  # batch size = 2
     print ('input data')

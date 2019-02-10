@@ -107,7 +107,7 @@ def run():
                 labels = Variable(labels_vol[i].cuda() if cuda_available else labels_vol[i])
                 # 5D tensor   Batch_Size * 1        * 16 * 192 * 192
 
-                
+
 
                 predicts = net(images)
                 # # 6D tensor   Batch_Size * 4 * 2 * 16(volume_size) * height * weight

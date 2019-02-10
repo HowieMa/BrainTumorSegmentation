@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/brats15_v2.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/brats15_v2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t1c_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/img_t2_wt.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/data_loader/img/label_wt.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/stacked_unet3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/stacked_unet3d.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/unet3d.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/unet3d.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_stacked.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_stacked.py" afterDir="false" />
@@ -22,19 +16,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="img_t1_wt.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/img/img_t1_wt.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="unet3d.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="unet3d.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/unet3d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="605">
-              <caret line="73" column="19" lean-forward="true" selection-start-line="73" selection-start-column="19" selection-end-line="73" selection-end-column="19" />
+            <state relative-caret-position="123">
+              <caret line="69" column="58" selection-start-line="69" selection-start-column="58" selection-end-line="69" selection-end-column="58" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stacked_unet3d.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/stacked_unet3d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="41" column="19" lean-forward="true" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="msnet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/msnet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3229">
+              <caret line="218" selection-start-line="218" selection-end-line="218" />
             </state>
           </provider>
         </entry>
@@ -52,8 +62,8 @@
       <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="116" selection-start-line="116" selection-end-line="119" />
+            <state relative-caret-position="117">
+              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -61,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train_stacked.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="train_stacked.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_stacked.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="109" column="16" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
+            <state relative-caret-position="200">
+              <caret line="109" selection-start-line="109" selection-end-line="109" />
             </state>
           </provider>
         </entry>
@@ -87,15 +97,6 @@
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_loader/__init__.py">
           <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="brats15.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/brats15.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
-            </state>
-          </provider>
         </entry>
       </file>
     </leaf>
@@ -166,11 +167,11 @@
         <option value="$PROJECT_DIR$/model/stackedunet.py" />
         <option value="$PROJECT_DIR$/model/stacked_unet.py" />
         <option value="$PROJECT_DIR$/model/multi_unet.py" />
+        <option value="$PROJECT_DIR$/data_loader/brats15_v2.py" />
+        <option value="$PROJECT_DIR$/train_stacked.py" />
+        <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/model/stacked_unet3d.py" />
         <option value="$PROJECT_DIR$/model/unet3d.py" />
-        <option value="$PROJECT_DIR$/data_loader/brats15_v2.py" />
-        <option value="$PROJECT_DIR$/train.py" />
-        <option value="$PROJECT_DIR$/train_stacked.py" />
       </list>
     </option>
   </component>
@@ -245,7 +246,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.brats15_v2">
+  <component name="RunManager" selected="Python.stacked_unet3d">
     <configuration name="Multi-Unet" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BrainTumorSegmentation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -345,9 +346,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.brats15_v2" />
-        <item itemvalue="Python.unet3d" />
         <item itemvalue="Python.stacked_unet3d" />
+        <item itemvalue="Python.unet3d" />
+        <item itemvalue="Python.brats15_v2" />
         <item itemvalue="Python.Multi-Unet" />
         <item itemvalue="Python.brats15" />
       </list>
@@ -566,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/msnet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="218" selection-start-line="218" selection-end-line="218" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/unet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1253">
@@ -624,16 +618,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/stacked_unet3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/img/img_flair_wt.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -666,30 +650,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/unet3d.py">
+    <entry file="file://$PROJECT_DIR$/model/msnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="73" column="19" lean-forward="true" selection-start-line="73" selection-start-column="19" selection-end-line="73" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="3229">
+          <caret line="218" selection-start-line="218" selection-end-line="218" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="116" selection-start-line="116" selection-end-line="119" />
+        <state relative-caret-position="117">
+          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/stacked_unet3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="41" column="19" lean-forward="true" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train_stacked.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="109" column="16" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
+        <state relative-caret-position="200">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/unet3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="69" column="58" selection-start-line="69" selection-start-column="58" selection-end-line="69" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
