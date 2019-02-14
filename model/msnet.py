@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from src.utils import *
 
 class conv(nn.Module):
     def __init__(self,in_ch,out_ch):
@@ -20,9 +21,6 @@ class conv(nn.Module):
 
 
 class ResBlock(nn.Module):
-    """
-
-    """
     def __init__(self,in_ch, out_ch, d=1):
         """
 
@@ -170,9 +168,17 @@ class WNET(nn.Module):
         self.out = up(7*n_classes, n_classes, 1)
 
     def forward(self, x):
-        x = self.conv(x)
-        x = self.block0(x)
+        """
+
+        :param x: 5D Tensor BatchSize * 4(modal) * 16 * W * H
+        :return:
+        """
+        x = self.conv(x)    # BatchSize * 32 * 16 * W * H
+        x = self.block0(x)  # BatchSize * 32 * 16/2 * W/2 * H/2
+        print x.shape
+
         x0, x = self.block1(x)
+
         x0 = self.up0(x0)
         x = self.block2(x)
 
@@ -181,49 +187,17 @@ class WNET(nn.Module):
         x = self.up2(x)
         x = torch.cat([x0, x1, x], dim=1)
         x = self.out(x)
-        return F.sigmoid(x)
-
-
-class ENET(nn.Module):
-    def __init__(self, n_channels, out_ch, n_classes):
-        super(ENET, self).__init__()
-
-        self.conv = conv(n_channels, out_ch)
-        self.block0 = ResBlock2(out_ch, out_ch, 1)  #
-        self.block1 = ResBlock2(out_ch, out_ch, 1)
-        self.block2 = ResBlock3(out_ch, out_ch, 1)
-        self.block3 = ResBlock3(out_ch, out_ch, 0)
-
-        self.up0 = up(out_ch, n_classes, 1)
-        self.up1 = up(out_ch, n_classes * 2, 2)
-        self.up2 = up(out_ch, n_classes * 2, 2)
-
-        self.out = up(5 * n_classes, n_classes, 1)
-
-    def forward(self, x):
-        x = self.conv(x)
-        x,_ = self.block0(x)
-        x0, x = self.block1(x)
-        x0 = self.up0(x0)
-        x = self.block2(x)
-        x1 = self.up1(x)
-
-        x = self.block3(x)
-        x = self.up2(x)
-
-        x = torch.cat([x0, x1, x], dim=1)
-
-        x = self.out(x)
-        return F.sigmoid(x)
+        return x
 
 
 if __name__ =='__main__':
-    x = torch.ones(1, 4, 24, 24, 24)
+    x = torch.ones(1, 4, 16, 192, 192)
     print ('test wnet............')
     print ('shape of X ')
     print x.shape
 
-    net = WNET(1, 32, 4)
+    net = WNET(4, 32, 2)
+    print"total parameter:" + str(netSize(net))  # 241784
     if torch.cuda.is_available():
         net = net.cuda()
         x = x.cuda()
@@ -232,17 +206,7 @@ if __name__ =='__main__':
     print ('shape of Y ')
     print (y.shape)
 
-    print ('test Enet.............')
-    print ('shape of X ')
-    print x.shape
-    net = ENET(1, 32, 4)
-    if torch.cuda.is_available():
-        net = net.cuda()
-        x = x.cuda()
 
-    y = net(x)
-    print ('shape of Y ')
-    print (y.shape)
 
 
 

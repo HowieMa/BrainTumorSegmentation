@@ -1,12 +1,15 @@
+import math
 import torch
 import torch.nn as nn
 
 
 class UNet(nn.Module):
-    def __init__(self, in_ch, out_ch):
+    def __init__(self, in_ch, out_ch, degree=64):
         super(UNet, self).__init__()
 
-        chs = [64, 128, 256, 512, 1024]
+        chs = []
+        for i in range(5):
+            chs.append((2 ** i) * degree)
 
         self.down1 = nn.Sequential(Conv3x3(in_ch, chs[0]))
         self.down2 = nn.Sequential(nn.MaxPool2d(kernel_size=2), Conv3x3(chs[0], chs[1]))
@@ -20,6 +23,15 @@ class UNet(nn.Module):
         self.up4 = Up(chs[1], chs[0])
 
         self.out = Conv3x3(chs[0], out_ch)
+
+        # Params initialization
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
+            elif isinstance(m, nn.BatchNorm2d):
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
 
     def forward(self, x):
         x1 = self.down1(x)
@@ -71,8 +83,8 @@ class Up(nn.Module):
 
 
 if __name__ == "__main__":
-    net = UNet(1, 3)
-    a = torch.randn(4, 1, 64, 64)
+    net = UNet(4, 2)
+    a = torch.randn(4, 4, 64, 64)
     b = net(a)
     print b.shape
 

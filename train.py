@@ -1,7 +1,7 @@
 from model.unet3d import UNet3D
 from model.multi_unet import Multi_Unet
 from src.utils import *
-from data_loader.brats15_v2 import Brats15DataLoader
+from data_loader.brats15_3d import Brats15DataLoader
 
 
 from torch.utils.data import DataLoader

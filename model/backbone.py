@@ -38,9 +38,9 @@ class ConvTrans3d(nn.Module):
         return x
 
 
-class UpBlock(nn.Module):
+class UpBlock3d(nn.Module):
     def __init__(self, in_ch, out_ch):
-        super(UpBlock, self).__init__()
+        super(UpBlock3d, self).__init__()
         self.up_conv = ConvTrans3d(in_ch, out_ch)
         self.conv = ConvBlock3d(2 * out_ch, out_ch)
 

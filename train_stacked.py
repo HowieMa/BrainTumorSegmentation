@@ -1,6 +1,6 @@
 from model.stacked_unet3d import StackedUnet3D
 from src.utils import *
-from data_loader.brats15_v2 import Brats15DataLoader
+from data_loader.brats15_3d import Brats15DataLoader
 
 
 from torch.utils.data import DataLoader

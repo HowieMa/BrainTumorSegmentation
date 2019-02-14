@@ -27,7 +27,6 @@ import scipy.misc
 from src.utils import *
 
 ddd = ['flair', 't1', 't1c', 't2']
-np.random.rand(20180128)
 
 
 class Brats15DataLoader(Dataset):
@@ -173,11 +172,13 @@ class Brats15DataLoader(Dataset):
 
 # test case
 if __name__ =="__main__":
-    slice = 10
+    slice = 5
+    vol_num = 4
     data_dir = '../data_sample/'
     conf = '../config/sample15.conf'
     print ('**** whole tumor task *************')
-    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt', conf=conf, is_train=True)
+    brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt',
+                                conf=conf, is_train=False)
     volume, labels, subjct = brats15[0]
 
     print 'volume size ...'
@@ -193,7 +194,7 @@ if __name__ =="__main__":
 
     print ('get sample of images')
     for i in range(4):
-        sample_img = volume[0][i, slice, :, :]         # 192 * 192
+        sample_img = volume[vol_num][i, slice, :, :]         # 192 * 192
         sample_img = norm(sample_img)
         out = np.zeros((192, 200))
         out[:, :96] = sample_img[:,:96]
@@ -201,7 +202,7 @@ if __name__ =="__main__":
         scipy.misc.imsave('img/img_%s_wt.jpg' % ddd[i], out)
 
     print ('get sample of labels')
-    sample_label = labels[0][0, slice, :, :]           # 192 * 192
+    sample_label = labels[vol_num][0, slice, :, :]           # 192 * 192
     print sample_label.shape
     label = np.ones((192, 200))
     label[:, :96] = sample_label[:,:96]

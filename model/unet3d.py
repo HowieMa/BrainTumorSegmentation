@@ -27,19 +27,19 @@ class UNet3D(nn.Module):
         self.bottomLayer = nn.Sequential(nn.MaxPool3d(kernel_size=2, stride=2, padding=0),
                                    ConvBlock3d(chs[3], chs[4]))
 
-        self.upLayer1 = UpBlock(chs[4], chs[3])
-        self.upLayer2 = UpBlock(chs[3], chs[2])
-        self.upLayer3 = UpBlock(chs[2], chs[1])
-        self.upLayer4 = UpBlock(chs[1], chs[0])
+        self.upLayer1 = UpBlock3d(chs[4], chs[3])
+        self.upLayer2 = UpBlock3d(chs[3], chs[2])
+        self.upLayer3 = UpBlock3d(chs[2], chs[1])
+        self.upLayer4 = UpBlock3d(chs[1], chs[0])
 
         self.outLayer = nn.Conv3d(chs[0], out_ch, kernel_size=3, stride=1, padding=1)
 
         # Params initialization
         for m in self.modules():
-            if isinstance(m, nn.Conv2d):
+            if isinstance(m, nn.Conv3d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
                 m.weight.data.normal_(0, math.sqrt(2. / n))
-            elif isinstance(m, nn.BatchNorm2d):
+            elif isinstance(m, nn.BatchNorm3d):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
 
