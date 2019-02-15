@@ -87,7 +87,7 @@ def run():
             # ****** calculate dice ******
             predicts = F.softmax(predicts[:, 3, :, :, :], dim=1)
             # 4D float Tensor   Batch_Size * 2 * height * weight
-            predicts = (predicts[:, 1, :, :, :] > 0.5).long()
+            predicts = (predicts[:, 1, :, :] > 0.5).long()
             # 3D Long  Tensor   Batch_Size *     height * weight
             d = dice(predicts, label[:, 0, :, :].long())
             train_dice.append(d)
@@ -117,7 +117,7 @@ def run():
             # ****** calculate dice ******
             predicts = F.softmax(predicts[:, 3, :, :, :], dim=1)
             # 4D float Tensor   Batch_Size * 2 * height * weight
-            predicts = (predicts[:, 1, :, :, :] > 0.5).long()
+            predicts = (predicts[:, 1, :, :] > 0.5).long()
             # 3D Long  Tensor   Batch_Size *     height * weight
             d = dice(predicts, label[:, 0, :, :].long())
             test_dice.append(d)
