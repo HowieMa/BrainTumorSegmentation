@@ -1,5 +1,5 @@
-from model.unet3d import UNet3D
-from model.multi_unet import Multi_Unet
+from model3d.unet3d import UNet3D
+from model3d.multi_unet3d import Multi_Unet
 from src.utils import *
 from data_loader.brats15_3d import Brats15DataLoader
 

@@ -212,15 +212,6 @@ def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
         scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg', output)
 
 
-def weights_init(m):
-    classname = m.__class__.__name__
-    if classname.find('Conv') != -1:
-        m.weight.data.normal_(0.0, 0.02)
-    elif classname.find('BatchNorm') != -1:
-        m.weight.data.normal_(1.0, 0.02)
-        m.bias.data.fill_(0)
-
-
 def dice(predict, target):
     """
 
@@ -228,7 +219,7 @@ def dice(predict, target):
     :param target:  4D Long Tensor Batch_Size * 16(volume_size) * height * weight
     :return:
     """
-    smooth = 0.0001
+    smooth = 0.00000001
     batch_num = target.shape[0]
     target = target.view(batch_num, -1)
     predict = predict.view(batch_num, -1)
@@ -255,4 +246,4 @@ def netSize(net):
         k = k + l
     return k
 
-    print("total sum parameter:" + str(k))
+

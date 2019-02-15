@@ -48,30 +48,31 @@ class Brats15DataLoader(Dataset):
 
         print('~' * 50)
         print ('******** Loading data from disk ********')
-        self.data = {}
+        self.data = []
+
         for subject in self.img_lists:
-            if subject not in self.data:
-                self.data[subject] = self.get_subject(subject)
+            volume, label = self.get_subject(subject)   # 4 * 144 * 192 * 192
+            length = volume.shape[1]                    # 144
+            for i in range(length):
+                name = subject + '=' + str(i)
+                self.data.append([volume[:, i, :, :], label[:, i, :, :], name])
 
         print ('********  Finish loading data  ********')
-        print ('********  Total number of subject is ' + str(len(self.data)))
+        print ('********  Total number of 2D images is ' + str(len(self.data)))
         print('~' * 50)
 
     def __len__(self):
-        return len(self.img_lists)
+        return len(self.data)
 
-    def __getitem__(self, item):
+    def __getitem__(self, index):
         # ********** get file dir **********
-        subject = self.img_lists[item]      # get absolute dir
-        volume, label = self.data[subject]  # get whole data for one subject
+        [image2d, label2d,name] = self.data[index]  # get whole data for one subject
 
         # ********** change data type from numpy to torch.Tensor **********
-        volume = torch.from_numpy(volume).float()  # Float Tensor 4 * 144 * 192 * 192
-        label = torch.from_numpy(label).float()    # Float Tensor 4 * 144 * 192 * 192
+        image2d = torch.from_numpy(image2d).float()  # Float Tensor 4 * 144 * 192 * 192
+        label2d = torch.from_numpy(label2d).float()    # Float Tensor 4 * 144 * 192 * 192
 
-        # ********** get slice from whole images **********
-        images_vol, labels_vol = self.get_slices(volume, label)
-        return images_vol, labels_vol, subject
+        return image2d, label2d, name
 
     def get_subject(self, subject):
         """
@@ -114,11 +115,14 @@ class Brats15DataLoader(Dataset):
         for i in range(len(multi_mode_imgs)):
             multi_mode_imgs[i] = crop_with_box(multi_mode_imgs[i], bbmin, bbmax, self.data_box)
             multi_mode_imgs[i] = normalize_one_volume(multi_mode_imgs[i])
-        label = crop_with_box(label, bbmin, bbmax, self.data_box)
+        label = crop_with_box(label, bbmin, bbmax, self.data_box)   # (144, 192, 192)
 
-        # step2 ********* transfer images to different direction *********
-        multi_mode_imgs = transpose_volumes(multi_mode_imgs, self.direction)
+        # step2 ********* transfer to different direction *********
+        multi_mode_imgs = transpose_volumes(multi_mode_imgs, self.direction)  # list
         label = transpose_volumes([label], self.direction)[0]
+
+        if self.direction == 'sagittal' or self.direction == 'coronal':
+            self.data_box = [192, 144, 192]
 
         # step3 ********** get bounding box based on task **********
         if self.task_type == 'wt':
@@ -143,71 +147,32 @@ class Brats15DataLoader(Dataset):
 
         return volume, label
 
-    def get_slices(self, img, label):
-        """
-        For training, get volume randomly; For testing, get volume step by step
-        :param img:     4D Float Tensor 4 * 144 * 192 * 192
-        :param label:   4D Float Tensor 4 * 144 * 192 * 192
-        :return:
-        img       Float Tensor List [4 * 16 * 192 * 192] * 9
-        label     Float Tensor List [4 * 16 * 192 * 192] * 9
-        """
-        times = img.shape[1] / self.volume_size  # 144 / 16 = 9
-
-        images_vol = []
-        labels_vol = []
-        for t in range(times):
-            if self.is_train is True:
-                start = np.random.randint(0, img.shape[1] - self.volume_size + 1)
-            else:
-                start = t * self.volume_size  # 0 ,16, 32, 48, ...
-
-            im = img[:, start: start + self.volume_size, :, :]
-            lbl = label[:, start: start + self.volume_size, :, :]
-            images_vol.append(im)
-            labels_vol.append(lbl)
-
-        return images_vol, labels_vol
-
 
 # test case
 if __name__ =="__main__":
-    slice = 5
     vol_num = 4
     data_dir = '../data_sample/'
     conf = '../config/sample15.conf'
     print ('**** whole tumor task *************')
     brats15 = Brats15DataLoader(data_dir=data_dir, task_type='wt',
+                                direction='coronal',
                                 conf=conf, is_train=False)
-    volume, labels, subjct = brats15[0]
-
-    print 'volume size ...'
-    print len(volume)
+    image2d, label2d, index = brats15[60]
 
     print ('image size ......')
-    print (volume[0].shape)             # (4, 16, 192, 192)
+    print (image2d.shape)             # (4,  192, 192)
 
     print ('label size ......')
-    print (labels[0].shape)             # (1, 16, 192, 192)
+    print (label2d.shape)             # (1,  192, 192)
 
-    print subjct
+    print index
 
     print ('get sample of images')
     for i in range(4):
-        sample_img = volume[vol_num][i, slice, :, :]         # 192 * 192
-        sample_img = norm(sample_img)
-        out = np.zeros((192, 200))
-        out[:, :96] = sample_img[:,:96]
-        out[:, 100:196] = sample_img[:, 96:]
-        scipy.misc.imsave('img/img_%s_wt.jpg' % ddd[i], out)
+        scipy.misc.imsave('img2d/img_%s_wt.jpg' % ddd[i], image2d[i, :, :])
 
     print ('get sample of labels')
-    sample_label = labels[vol_num][0, slice, :, :]           # 192 * 192
-    print sample_label.shape
-    label = np.ones((192, 200))
-    label[:, :96] = sample_label[:,:96]
-    label[:, 100:196] = sample_label[:, 96:]
-    scipy.misc.imsave('img/label_wt.jpg', label)
+    scipy.misc.imsave('img2d/label_wt.jpg', label2d[0, :, :]) # 192 * 192
 
 
 
