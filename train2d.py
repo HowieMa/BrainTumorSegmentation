@@ -101,7 +101,7 @@ def run():
 
             # ****** save sample image for each epoch ******
             if step == 0:
-                save_train_slice(image, predicts, label[:, 0, :, :], epoch, save_dir=save_dir + model + '/')
+                save_train_images(image, predicts, label[:, 0, :, :], index, epoch, save_dir=save_dir + model + '/')
 
         # ***************** calculate test loss *****************
         print 'test ....'

@@ -212,6 +212,31 @@ def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
         scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg', output)
 
 
+def save_train_images(images, predicts, labels, index, epoch, save_dir='ckpt'):
+    """
+    :param images:      4D tensor Batch_Size * 4(modal)  * height * weight
+    :param predicts:    4D Long tensor Batch_Size  * height * weight
+    :param labels:      4D Long tensor Batch_Size  * height * weight
+    :return:
+    """
+    images = np.asarray(images.data)
+    predicts = np.asarray(predicts.data)
+    labels = np.asarray(labels)
+
+    if not os.path.exists(save_dir + 'epoch' + str(epoch)):
+        os.mkdir(save_dir + 'epoch' + str(epoch))
+
+    for b in range(images.shape[0]):  # for each batch
+        output = np.zeros((192, 200 * 6))  # H, W
+        for m in range(4):              # for each modal
+            output[:, 200 * m: 200 * m + 192] = norm(images[b, m, :, :])
+        output[:, 200 * 4: 200 * 4 + 192] = norm(predicts[b, :, :])
+        output[:, 200 * 5: 200 * 5 + 192] = norm(labels[b, :, :])
+        name = index[b].split('/')[-1]
+        scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' +
+                          str(b) + name + '.jpg', output)
+
+
 def dice(predict, target):
     """
 
