@@ -258,7 +258,10 @@ def norm(data):
     data = np.asarray(data)
     smax = np.max(data)
     smin = np.min(data)
-    return (data - smin) / (smax - smin)
+    if smax - smin == 0:
+        return data
+    else:
+        return (data - smin) / (smax - smin)
 
 
 def netSize(net):
