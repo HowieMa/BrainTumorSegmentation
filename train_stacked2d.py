@@ -67,7 +67,7 @@ def run():
         # *************** train model ***************
         print 'train ....'
         net.train()
-        for step, (image, label, subject) in enumerate(train_dataset):
+        for step, (image, label, index) in enumerate(train_dataset):
             image = Variable(image.cuda() if cuda_available else image)
             # 4D tensor   Batch_Size * 4(modal) * 192 * 192
             label = Variable(label.cuda() if cuda_available else image)
@@ -94,7 +94,7 @@ def run():
 
             # ****** save sample image for each epoch ******
             if step == 0:
-                save_train_slice(image, predicts, label[:, 0, :, :], epoch, save_dir=save_dir + model + '/')
+                save_train_images(image, predicts, label[:, 0, :, :], index, epoch, save_dir=save_dir + model + '/')
 
         # ***************** calculate test loss *****************
 
