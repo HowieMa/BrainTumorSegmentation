@@ -21,9 +21,9 @@ conf_train = 'config/train15.conf'
 conf_test = 'config/test15.conf'
 learning_rate = 0.001
 batch_size = 32
-epochs = 200
+epochs = 30
 save_dir = 'ckpt_'
-device_ids = [0, 1]       # multi-GPU
+device_ids = [0, 1, 2, 3]       # multi-GPU
 cuda_available = torch.cuda.is_available()
 
 model = sys.argv[1]

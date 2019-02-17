@@ -128,6 +128,7 @@ def run():
                     predicts = (predicts[:, 1, :, :, :] > 0.5).long()
                     # 4D Long  Tensor   Batch_Size * 16(volume_size) * height * weight
                     d = dice(predicts, lbl[:, 0, :, :, :].long())
+
                     test_dice.append(d)
 
         # **************** save loss for one batch ****************

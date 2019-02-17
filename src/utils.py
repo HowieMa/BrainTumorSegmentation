@@ -204,12 +204,14 @@ def save_train_slice(images, predicts, labels, epoch, save_dir='ckpt'):
         os.mkdir(save_dir + 'epoch' + str(epoch))
 
     for b in range(images.shape[0]):  # for each batch
-        output = np.zeros((192, 200 * 6))  # H, W
-        for m in range(4):              # for each modal
-            output[:, 200 * m: 200 * m + 192] = norm(images[b, m, slice, :, :])
-        output[:, 200 * 4: 200 * 4 + 192] = norm(predicts[b, slice, :, :])
-        output[:, 200 * 5: 200 * 5 + 192] = norm(labels[b, slice, :, :])
-        scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' + str(b) + '.jpg', output)
+        for s in range(images.shape[2]):
+            output = np.zeros((192, 200 * 6))  # H, W
+            for m in range(4):              # for each modal
+                output[:, 200 * m: 200 * m + 192] = norm(images[b, m, s, :, :])
+            output[:, 200 * 4: 200 * 4 + 192] = norm(predicts[b, s, :, :])
+            output[:, 200 * 5: 200 * 5 + 192] = norm(labels[b, s, :, :])
+            scipy.misc.imsave(save_dir + 'epoch' + str(epoch) + '/b_' + str(b)
+                              + '_s' + str(s) + '.jpg', output)
 
 
 def save_train_images(images, predicts, labels, index, epoch, save_dir='ckpt'):
