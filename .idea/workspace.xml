@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/train2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/train2d.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_stacked2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_stacked2d.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,8 +50,8 @@
       <file leaf-file-name="train2d.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="104" />
+            <state relative-caret-position="94">
+              <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -61,7 +62,7 @@
       <file leaf-file-name="test15.conf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/test15.conf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="855">
               <caret line="45" selection-start-line="45" selection-end-line="45" selection-end-column="26" />
             </state>
           </provider>
@@ -70,8 +71,8 @@
       <file leaf-file-name="train15.conf" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/train15.conf">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="269" column="26" selection-start-line="269" selection-end-line="269" selection-end-column="26" />
+            <state relative-caret-position="-3787">
+              <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -100,8 +101,8 @@
       <file leaf-file-name="train_stacked2d.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train_stacked2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+            <state relative-caret-position="-953">
+              <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -198,9 +199,9 @@
         <option value="$PROJECT_DIR$/train_stacked3d.py" />
         <option value="$PROJECT_DIR$/data_loader/brats15_2d.py" />
         <option value="$PROJECT_DIR$/src/utils.py" />
-        <option value="$PROJECT_DIR$/config/train15.conf" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/train3d.py" />
+        <option value="$PROJECT_DIR$/config/train15.conf" />
         <option value="$PROJECT_DIR$/train2d.py" />
         <option value="$PROJECT_DIR$/train_stacked2d.py" />
       </list>
@@ -665,20 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/test15.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="45" selection-start-line="45" selection-end-line="45" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/train15.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="269" column="26" selection-start-line="269" selection-end-line="269" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -699,10 +686,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/train15.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3787">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/test15.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="45" selection-start-line="45" selection-end-line="45" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/train2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="104" />
+        <state relative-caret-position="94">
+          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
@@ -718,8 +719,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train_stacked2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="20" column="11" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="11" />
+        <state relative-caret-position="-953">
+          <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
