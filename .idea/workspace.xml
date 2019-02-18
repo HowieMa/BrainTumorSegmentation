@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69968ab5-7448-41c2-bf6d-bf1426809c17" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/train2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/train2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model2d/stacked_unet2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/model2d/stacked_unet2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model2d/unet2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/model2d/unet2d.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_stacked2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_stacked2d.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,32 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="247" column="7" lean-forward="true" selection-start-line="247" selection-start-column="7" selection-end-line="247" selection-end-column="7" />
-              <folding>
-                <element signature="e#16#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="run.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="28" selection-start-column="22" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="train3d.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train3d.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1692">
-              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+              <caret line="124" selection-start-line="124" selection-end-line="124" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -47,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train2d.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="train2d.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+            <state relative-caret-position="52">
+              <caret line="58" column="9" selection-start-line="58" selection-end-line="58" selection-end-column="9" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -77,32 +57,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="171">
-                <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="train_stacked3d.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_stacked3d.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+              <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="train_stacked2d.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="train_stacked2d.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_stacked2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-953">
-              <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+            <state relative-caret-position="225">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -110,11 +78,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="brats15_3d.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loader/brats15_3d.py">
+      <file leaf-file-name="stacked_unet2d.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model2d/stacked_unet2d.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1822">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="120">
+              <caret line="38" selection-start-line="38" selection-end-line="38" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multi_unet2d.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model2d/multi_unet2d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="228" selection-start-line="228" selection-end-line="228" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="unet2d.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model2d/unet2d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="unet3d.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model3d/unet3d.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="65" selection-start-line="65" selection-end-line="65" />
+              <folding>
+                <element signature="e#0#22#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -192,9 +199,7 @@
         <option value="$PROJECT_DIR$/model2d/stacked_unet3d.py" />
         <option value="$PROJECT_DIR$/model/unet2d.py" />
         <option value="$PROJECT_DIR$/model2d/backbone.py" />
-        <option value="$PROJECT_DIR$/model2d/stacked_unet2d.py" />
         <option value="$PROJECT_DIR$/model2d/unet2dw.py" />
-        <option value="$PROJECT_DIR$/model2d/unet2d.py" />
         <option value="$PROJECT_DIR$/model2d/multi_unet2d.py" />
         <option value="$PROJECT_DIR$/train_stacked3d.py" />
         <option value="$PROJECT_DIR$/data_loader/brats15_2d.py" />
@@ -204,6 +209,8 @@
         <option value="$PROJECT_DIR$/config/train15.conf" />
         <option value="$PROJECT_DIR$/train2d.py" />
         <option value="$PROJECT_DIR$/train_stacked2d.py" />
+        <option value="$PROJECT_DIR$/model2d/stacked_unet2d.py" />
+        <option value="$PROJECT_DIR$/model2d/unet2d.py" />
       </list>
     </option>
   </component>
@@ -257,7 +264,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.brats15_2d">
+  <component name="RunManager" selected="Python.stacked_unet2d">
     <configuration name="brats15_2d" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="BrainTumorSegmentation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -357,10 +364,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.brats15_2d" />
-        <item itemvalue="Python.unet2d" />
-        <item itemvalue="Python.multi_unet2d" />
         <item itemvalue="Python.stacked_unet2d" />
+        <item itemvalue="Python.unet2d" />
+        <item itemvalue="Python.brats15_2d" />
+        <item itemvalue="Python.multi_unet2d" />
         <item itemvalue="Python.brats15_v2" />
       </list>
     </recent_temporary>
@@ -429,13 +436,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/img/img_tc.jpg" />
     <entry file="file://$PROJECT_DIR$/data_loader/img/labelbg_wt.jpg" />
     <entry file="file://$PROJECT_DIR$/data_loader/img/img_t2_tc.jpg" />
@@ -590,36 +590,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model2d/unet2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model2d/stacked_unet2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="37" column="53" selection-start-line="37" selection-start-column="53" selection-end-line="37" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model2d/multi_unet2d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="228" selection-start-line="228" selection-end-line="228" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_loader/img2d/img_flair_wt.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -670,7 +640,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="171">
-            <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <caret line="9" selection-start-line="9" selection-end-line="9" />
           </first_editor>
           <second_editor />
         </state>
@@ -679,7 +649,7 @@
     <entry file="file://$PROJECT_DIR$/train3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1692">
-          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+          <caret line="124" selection-start-line="124" selection-end-line="124" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
@@ -700,12 +670,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train2d.py">
+    <entry file="file://$PROJECT_DIR$/model2d/multi_unet2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="23" column="10" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
+        <state relative-caret-position="198">
+          <caret line="228" selection-start-line="228" selection-end-line="228" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -713,16 +683,56 @@
     <entry file="file://$PROJECT_DIR$/train_stacked3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="8" column="10" lean-forward="true" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model2d/stacked_unet2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model3d/unet3d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="65" selection-start-line="65" selection-end-line="65" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model2d/unet2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train_stacked2d.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-953">
-          <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+        <state relative-caret-position="225">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train2d.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="58" column="9" selection-start-line="58" selection-end-line="58" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>

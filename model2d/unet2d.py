@@ -5,6 +5,7 @@ import torch.nn as nn
 from backbone import *
 from src.utils import *
 
+
 class UNet2D(nn.Module):
     def __init__(self, in_ch=4, out_ch=2, degree=64):
         super(UNet2D, self).__init__()
@@ -65,10 +66,12 @@ class UNet2D(nn.Module):
 if __name__ == "__main__":
     net = UNet2D(4, 2, degree=64)
     print"total parameter:" + str(netSize(net))  # 3452,8706
+    torch.save(net.state_dict(), 'model.pth')
+
     # degree = 128                      1,3806,6818
 
-    # batch_size = 4
-    # a = torch.randn(batch_size, 4, 192, 192)
-    # b = net(a)
-    # print b.shape
+    batch_size = 4
+    a = torch.randn(batch_size, 4, 192, 192)
+    b = net(a)
+    print b.shape
 

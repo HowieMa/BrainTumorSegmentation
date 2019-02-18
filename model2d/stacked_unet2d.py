@@ -34,8 +34,8 @@ class StackedUnet2D(nn.Module):
 
 # test case
 if __name__ == "__main__":
-    net = StackedUnet2D(in_ch=1, out_ch=2, degree=64)
-    print"total parameter:" + str(netSize(net))  # 1,3811,1368
+    net = StackedUnet2D(in_ch=1, out_ch=2, degree=32)
+    print"total parameter:" + str(netSize(net))  # 3455,0984
 
     batch_size = 2
     x = torch.randn(batch_size, 4, 64, 64)  # batch size = 2

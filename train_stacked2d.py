@@ -30,7 +30,7 @@ if not os.path.exists(save_dir + model + '/'):
 
 # ******************** build model ********************
 
-net = StackedUnet2D(in_ch=1, out_ch=2, degree=16)
+net = StackedUnet2D(in_ch=1, out_ch=2, degree=32)
 
 if cuda_available:
     net = net.cuda()
