@@ -66,7 +66,7 @@ class UNet2D(nn.Module):
 if __name__ == "__main__":
     net = UNet2D(4, 2, degree=64)
     print"total parameter:" + str(netSize(net))  # 3452,8706
-    torch.save(net.state_dict(), 'model.pth')
+    # torch.save(net.state_dict(), 'model.pth')
 
     # degree = 128                      1,3806,6818
 

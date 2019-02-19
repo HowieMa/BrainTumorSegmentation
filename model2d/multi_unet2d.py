@@ -222,11 +222,11 @@ class Multi_Unet(nn.Module):
 if __name__ == "__main__":
     batch_size = 2
     num_classes = 2  # one hot
-    initial_kernels = 64
+    initial_kernels = 32
 
     net = Multi_Unet(1, num_classes, initial_kernels)
     print"total parameter:" + str(netSize(net))  # 1,1435,6546
-
+    # torch.save(net.state_dict(), 'model.pth')
     MRI = torch.randn(batch_size, 4, 64, 64)    # Batchsize, modal, hight,
 
     if torch.cuda.is_available():
